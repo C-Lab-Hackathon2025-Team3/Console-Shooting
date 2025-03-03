@@ -2,8 +2,11 @@
 
 #include <stdlib.h>
 #include <assert.h>
+
+#ifndef __APPLE__
 const long* const TERMINATE_STR = "\x1B[H";
 const char ASCII_BRIGHTNESS[70] = ".'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+#endif
 
 char* g_output_buffer = NULL;
 size_t g_width = 0;
@@ -26,7 +29,11 @@ void init_screen(size_t width, size_t height)
 		}
 		g_output_buffer[i * g_pitch + width] = '\n';
 	}
+#ifndef __APPLE__
 	*(long*)(g_output_buffer + height * g_pitch) = *TERMINATE_STR;
+#else
+	g_output_buffer[height * g_pitch] = 0;
+#endif
 }
 
 void release_screen(void)

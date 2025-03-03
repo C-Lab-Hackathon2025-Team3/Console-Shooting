@@ -8,7 +8,9 @@
 extern char* g_screen_buffer;
 #endif
 
+#ifndef __APPLE__
 extern const char ASCII_BRIGHTNESS[70];
+#endif
 
 void init_screen(size_t width, size_t height);
 void release_screen(void);
