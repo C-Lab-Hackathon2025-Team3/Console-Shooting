@@ -9,7 +9,8 @@ extern char* g_screen_buffer;
 #endif
 
 
-extern const char ASCII_BRIGHTNESS[70];
+extern const char ASCII_BRIGHTNESS[];
+extern const char BIRGHTNESS_RANGE;
 
 
 void init_screen(size_t width, size_t height);

@@ -5,7 +5,8 @@
 
 
 const long* const TERMINATE_STR = "\x1B[H";
-const char ASCII_BRIGHTNESS[70] = ".'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+const char ASCII_BRIGHTNESS[] = ".'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+const char BIRGHTNESS_RANGE = sizeof(ASCII_BRIGHTNESS);
 
 char* g_output_buffer = NULL;
 size_t g_width = 0;
