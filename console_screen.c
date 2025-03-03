@@ -3,10 +3,9 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#ifndef __APPLE__
+
 const long* const TERMINATE_STR = "\x1B[H";
 const char ASCII_BRIGHTNESS[70] = ".'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
-#endif
 
 char* g_output_buffer = NULL;
 size_t g_width = 0;
