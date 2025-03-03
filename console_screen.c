@@ -17,7 +17,7 @@ void init_screen(size_t width, size_t height)
 	g_width = width;
 	g_height = height;
 	g_pitch = width + 1;
-	g_output_buffer = malloc(g_pitch * height + 4);
+	g_output_buffer = malloc(g_pitch * height + 3);
 	assert(g_output_buffer != NULL);
 
 	for (size_t i = 0; i < height; i++)
@@ -29,7 +29,7 @@ void init_screen(size_t width, size_t height)
 		g_output_buffer[i * g_pitch + width] = '\n';
 	}
 #ifndef __APPLE__
-	*(long*)(g_output_buffer + height * g_pitch) = *TERMINATE_STR;
+	*(long*)(g_output_buffer + height * g_pitch -1) = *TERMINATE_STR;
 #else
 	g_output_buffer[height * g_pitch] = 0;
 #endif
