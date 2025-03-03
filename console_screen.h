@@ -1,7 +1,7 @@
 #pragma once
 #include <stdio.h>
 
-#ifndef CONOSLE_SCREEN_H
+#ifndef CONSOLE_SCREEN_H
 #define CONSOLE_SCREEN_H
 
 #if defined(DEBUG) || defined(_DEBUG)
