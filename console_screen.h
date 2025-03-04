@@ -5,7 +5,7 @@
 #define CONSOLE_SCREEN_H
 
 #if defined(DEBUG) || defined(_DEBUG)
-extern char* g_screen_buffer;
+char* get_screen_buffer(void);
 #endif
 
 
