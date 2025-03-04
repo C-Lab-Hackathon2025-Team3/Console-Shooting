@@ -24,6 +24,9 @@
     <ClCompile Include="polygon.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="convert_screen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console_screen.h">
@@ -33,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="def.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="convert_screen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
