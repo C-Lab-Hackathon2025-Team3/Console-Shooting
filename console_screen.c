@@ -12,6 +12,10 @@ char* g_output_buffer = NULL;
 size_t g_width = 0;
 size_t g_height = 0;
 size_t g_pitch = 0;
+char* get_screen_buffer(void)
+{
+	return g_screen_buffer;
+}
 
 void init_screen(size_t width, size_t height)
 {
