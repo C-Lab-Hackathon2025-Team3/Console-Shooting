@@ -5,22 +5,23 @@
 
 vec4_t add_v4v4(const vec4_t* v1,const vec4_t* v2)
 {
-	return (vec4_t) { v1->v[0] + v2->v[0] , v1->v[1] + v2->v[1] , v1->v[2] + v2->v[2] , v1->v[3] + v2->v[3] };
+	return (vec4_t) { v1->x + v2->x , v1->y + v2->y , v1->z + v2->z , v1->w + v2->w };
 }
 
 vec3_t add_v3v3(const vec3_t* v1, const vec3_t* v2)
 {
-	return (vec3_t) { v1->v[0] + v2->v[0], v1->v[1] + v2->v[1], v1->v[2] + v2->v[2]};
+	return (vec3_t) { v1->x + v2->x, v1->y + v2->y, v1->z + v2->z};
 }
 
 vec4_t sub_v4v4(const vec4_t* v1, const vec4_t* v2)
 {
-	return (vec4_t) { v1->v[0] - v2->v[0], v1->v[1] - v2->v[1], v1->v[2] - v2->v[2], v1->v[3] - v2->v[3] };
+	return (vec4_t) { v1->x - v2->x, v1->y - v2->y, v1->z - v2->z, v1->w - v2->w };
 }
 
 vec3_t sub_v3v3(const vec3_t* v1, const vec3_t* v2)
 {
-	return (vec3_t) { v1->v[0] - v2->v[0], v1->v[1] - v2->v[1], v1->v[2] - v2->v[2] };
+	 vec3_t re =  { v1->x - v2->x, v1->y - v2->y, v1->z - v2->z };
+	 return re;
 }
 
 
@@ -28,13 +29,13 @@ vec3_t sub_v3v3(const vec3_t* v1, const vec3_t* v2)
 vec4_t mul_m4v4(const mat4_t* m,const vec4_t* v)
 {
 	vec4_t re = {
-		m->m[0][0] * v->v[0] + m->m[0][1] * v->v[1] + m->m[0][2] * v->v[2] + m->m[0][3] * v->v[3],
+		m->m[0][0] * v->x + m->m[0][1] * v->y + m->m[0][2] * v->z + m->m[0][3] * v->w,
 
-		m->m[1][0] * v->v[0] + m->m[1][1] * v->v[1] + m->m[1][2] * v->v[2] + m->m[1][3] * v->v[3],
+		m->m[1][0] * v->x + m->m[1][1] * v->y + m->m[1][2] * v->z + m->m[1][3] * v->w,
 
-		m->m[2][0] * v->v[0] + m->m[2][1] * v->v[1] + m->m[2][2] * v->v[2] + m->m[2][3] * v->v[3],
+		m->m[2][0] * v->x + m->m[2][1] * v->y + m->m[2][2] * v->z + m->m[2][3] * v->w,
 
-		m->m[3][0] * v->v[0] + m->m[3][1] * v->v[1] + m->m[3][2] * v->v[2] + m->m[3][3] * v->v[3]
+		m->m[3][0] * v->x + m->m[3][1] * v->y + m->m[3][2] * v->z + m->m[3][3] * v->w
 	};
 
 	return re;
@@ -44,13 +45,13 @@ vec4_t mul_m4v4(const mat4_t* m,const vec4_t* v)
 vec4_t mul_v4m4(const vec4_t* v,const mat4_t* m)
 {
 	vec4_t re = {
-		m->m[0][0] * v->v[0] + m->m[1][0] * v->v[1] + m->m[2][0] * v->v[2] + m->m[3][0] * v->v[3],
+		m->m[0][0] * v->x + m->m[1][0] * v->y + m->m[2][0] * v->z + m->m[3][0] * v->w,
 
-		m->m[0][1] * v->v[0] + m->m[1][1] * v->v[1] + m->m[2][1] * v->v[2] + m->m[3][1] * v->v[3],
+		m->m[0][1] * v->x + m->m[1][1] * v->y + m->m[2][1] * v->z + m->m[3][1] * v->w,
 
-		m->m[0][2] * v->v[0] + m->m[1][2] * v->v[1] + m->m[2][2] * v->v[2] + m->m[3][2] * v->v[3],
+		m->m[0][2] * v->x + m->m[1][2] * v->y + m->m[2][2] * v->z + m->m[3][2] * v->w,
 
-		m->m[0][3] * v->v[0] + m->m[1][3] * v->v[1] + m->m[2][3] * v->v[2] + m->m[3][3] * v->v[3]
+		m->m[0][3] * v->x + m->m[1][3] * v->y + m->m[2][3] * v->z + m->m[3][3] * v->w
 	};
 
 	return re;
@@ -81,7 +82,7 @@ vec3_t mul_m3v3(const mat3_t* m,const vec3_t* v);
 mat3_t mul_m3m3(const mat3_t* m1,const mat3_t* m2);
 vec3_t mul_s1v3(float s,const vec3_t* v)
 {
-	return (vec3_t) {v->v[0]*s , v->v[1]*s , v->v[2]*s };
+	return (vec3_t) {v->x*s , v->y*s , v->z*s };
 }
 vec4_t mul_s1m3(float s,const mat3_t* m);
 
@@ -92,7 +93,7 @@ float dot_v4(const vec4_t* v1,const vec4_t* v2);
 vec3_t cross_v3(const vec3_t* v1, const vec3_t* v2)
 {
 	return (vec3_t) {	(v1->y * v2->z - v1->z * v2->y),
-						-(v1->x * v2->z - v1->z * v2->x),
+						(v1->z * v2->x - v1->x * v2->z),
 						(v1->x * v2->y - v1->y * v2->x)
 	};
 }
@@ -104,14 +105,14 @@ float dot_v3(const vec3_t* v1, const vec3_t* v2)
 float length_v4(const vec4_t* v);
 float length_v3(const vec3_t* v)
 {
-	return (float)pow( (v->x*v->x + v->y * v->y + v->z * v->z), 0.5F);
+	return sqrtf(v->x*v->x + v->y * v->y + v->z * v->z);
 }
 
 vec4_t normalize_v4(const vec4_t* v);
 vec3_t normalize_v3(const vec3_t* v)
 {
 	float len = length_v3(v);
-	return (vec3_t) {v->x / len , v->x / len , v->z / len };
+	return (vec3_t) {v->x / len , v->y / len , v->z / len };
 }
 
 
@@ -123,7 +124,7 @@ mat4_t translate(const mat4_t* m,const vec3_t* v)
 		1.F , 0.F , 0.F , 0.F,
 		0.F , 1.F , 0.F , 0.F,
 		0.F , 0.F , 1.F , 0.F,
-		v->v[0] , v->v[1] , v->v[2] , 1.F
+		v->x , v->y , v->z , 1.F
 	};
 
 	
@@ -131,14 +132,14 @@ mat4_t translate(const mat4_t* m,const vec3_t* v)
 mat4_t rotate(const mat4_t* m,float angle,const vec3_t* v)
 {
  
-	float sinfv_x = sinf(angle * v->v[0]);
-	float cosfv_x = cosf(angle * v->v[0]);
+	float sinfv_x = sinf(angle * v->x);
+	float cosfv_x = cosf(angle * v->x);
 
-	float sinfv_y = sinf(angle * v->v[1]) ;
-	float cosfv_y = cosf(angle * v->v[1]) ;
+	float sinfv_y = sinf(angle * v->y) ;
+	float cosfv_y = cosf(angle * v->y) ;
 
-	float sinfv_z = sinf(angle * v->v[2]);
-	float cosfv_z = cosf(angle * v->v[2]);
+	float sinfv_z = sinf(angle * v->z);
+	float cosfv_z = cosf(angle * v->z);
 
 	mat4_t rx = {
 		1.F , 0.F , 0.F , 0.F,
@@ -148,7 +149,7 @@ mat4_t rotate(const mat4_t* m,float angle,const vec3_t* v)
 	};
 
 	mat4_t ry = {
-		cosfv_y , 0.F , sinfv_y , 0.F ,
+		cosfv_y , 0.F , -sinfv_y , 0.F ,
 		0.F , 1.F , 0.F ,0.F,
 		sinfv_y , 0.F, cosfv_y, 0.F,
 		0.F , 0.F , 0.F ,1.F 
@@ -161,36 +162,44 @@ mat4_t rotate(const mat4_t* m,float angle,const vec3_t* v)
 		0.F , 0.F , 0.F ,1.F
 	};
 
-	mat4_t rxy = mul_m4m4(&ry, &rx);
-	return mul_m4m4(&rz , &rxy);
+	mat4_t ryz = mul_m4m4(&ry, &rz);
+	return mul_m4m4(&rx , &ryz);
 
 }
 mat4_t scale(const mat4_t* m,const vec3_t* v)
 {
 	return (mat4_t) {
-		v->v[0]  , 0.F	 , 0.F , 0.F,
-		0.F		, v->v[1] , 0.F , 0.F,
-		0.F		, 0.F	 , v->v[2],0.F,
+		v->x  , 0.F	 , 0.F , 0.F,
+		0.F		, v->y , 0.F , 0.F,
+		0.F		, 0.F	 , v->z,0.F,
 		0.F		, 0.F	 , 0.F	, 1.F
 	};
 }
 
 mat4_t lookAt(const vec3_t* eye,const vec3_t* center,const vec3_t* up)
 {
-	vec3_t p = *eye; //view reference point
-	vec3_t n = sub_v3v3(center , eye);
-	n = normalize_v3(&n);
-	n = mul_s1v3(-1 , &n); //view plane normal
-	vec3_t u = cross_v3(&n , up); 
-	vec3_t v = cross_v3(&u , &n); //view up vector
+	
 
-	float translate = -dot_v3(&n, &p);
+	vec3_t z_axis = sub_v3v3(eye, center);
+	z_axis = normalize_v3(&z_axis);
 
+	
+	vec3_t x_axis = cross_v3(&z_axis , up);
+	x_axis = normalize_v3(&x_axis);
+
+	vec3_t y_axis = cross_v3(&x_axis , &z_axis);
+
+
+	float translate_x = -dot_v3(&x_axis, eye);
+	float translate_y = -dot_v3(&y_axis, eye);
+	float translate_z = -dot_v3(&z_axis, eye);
+
+	
 	return (mat4_t) {
-		u.x , v.x , n.x , 0.F,
-		u.y , v.y , n.y , 0.F,
-		u.z , v.z , n.z , 0.F,
-		translate , translate ,translate , 1.F
+		x_axis.x, y_axis.x, z_axis.x, 0.F,
+		x_axis.y, y_axis.y, z_axis.y, 0.F,
+		x_axis.z, y_axis.z, z_axis.z, 0.F,
+		translate_x, translate_y, translate_z, 1.F
 	};
 
 	

@@ -10,7 +10,7 @@ float angle_y = 0.F;
 float angle_z = 0.F;
 float angle_x = 0.F;
 float camAngle = 0.F;
-vec3_t eye = { 0.F , 0.F , -1.F };
+vec3_t eye = { 0.F , 50.F , -100.F };
 vec3_t center = { 0.F , 0.F  , 0.F };
 vec3_t up = { 0.F , 1.F , 0.F };
 
@@ -28,9 +28,9 @@ void eventCall()
 	else if (key == 'd')
 		dx += 1.F;
 	else if (key == 'q')
-		angle_y += 0.1F;
-	else if (key == 'e')
 		angle_y += -0.1F;
+	else if (key == 'e')
+		angle_y += +0.1F;
 	else if (key == 'r')
 	{
 		camAngle += 0.1F;
@@ -47,7 +47,7 @@ void eventCall()
 
 	eye.x = sin(camAngle);
 	eye.z = -cos(camAngle);
-	view_cam(eye, center, up);
+	//view_cam(eye, center, up);
 
 }
 
@@ -61,14 +61,15 @@ int main(void)
 	};
 
 	vec4_t cube[8] = {
-		{ 0.F  , 0.F ,0.F ,1.F},
-		{ 0.F  , 0.F ,1.F ,1.F},
-		{ 0.F  , 1.F ,0.F ,1.F},
-		{ 0.F  , 1.F ,1.F ,1.F},
 
-		{ 1.F  , 0.F ,0.F ,1.F},
-		{ 1.F  , 0.F ,1.F ,1.F},
-		{ 1.F  , 1.F ,0.F ,1.F},
+		{ -1.F  , -1.F ,-1.F ,0.1},
+		{ -1.F  , -1.F ,1.F ,0.1F},
+		{ -1.F  , 1.F ,-1.F ,1.F},
+		{ -1.F  , 1.F ,1.F ,1.F},
+
+		{ 1.F  , -1.F ,-1.F ,0.1F},
+		{ 1.F  , -1.F ,1.F ,0.1F},
+		{ 1.F  , 1.F ,-1.F ,1.F},
 		{ 1.F  , 1.F ,1.F ,1.F},
 	};
 
@@ -101,26 +102,15 @@ int main(void)
 	}
 	init_screen(SCREEN_WIDTH, SCREEN_HEGITH);
 	
-	view_cam(eye , center , up);
-	
-	scale_object((vec3_t) {50.F , 50.F , 50.F});
-	ivec2_t p0 = (ivec2_t){ 0*2 , 0 };
-	ivec2_t p1 = (ivec2_t){ 5*2 , 10 };
-	ivec2_t p2 = (ivec2_t){ 10*2 , 0 };
-	
-
-
 	
 	
+	scale_object((vec3_t) {10.F  ,10.F ,10.F});
+	view_cam(eye, center, up);
 
 	while (1)
 	{
-		//set_vertex_array(cube_vertex_buf);
-		//draw_vertex_array(DRAW_LINE_TRIANGLES, 0, 36);
-
-		draw_line(get_screen_buffer(), SCREEN_WIDTH, SCREEN_HEGITH, &p0, &p1, '*');
-		draw_line(get_screen_buffer(), SCREEN_WIDTH, SCREEN_HEGITH, &p2, &p1, '*');
-		draw_line(get_screen_buffer(), SCREEN_WIDTH, SCREEN_HEGITH, &p2, &p0, '*');
+		set_vertex_array(cube_vertex_buf);
+		draw_vertex_array(DRAW_LINE_TRIANGLES, 0, 36);
 
 		draw_screen();
 		clear_screen();

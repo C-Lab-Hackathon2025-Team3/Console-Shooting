@@ -114,20 +114,8 @@ void draw_line_legacy(vec4_t start_pont, vec4_t dst_point)
 void draw_polygon(vec4_t p1, vec4_t p2, vec4_t p3)
 {
 	//edge line
-	float dis_width = (absf(p1.x - p2.x) >absf(p1.x - p3.x)) ? absf(p1.x - p2.x) : absf(p1.x - p2.x);
-	dis_width = (dis_width > absf(p2.x - p3.x)) ? dis_width : absf(p2.x - p3.x);
-
-	float dis_height = (absf(p1.x - p2.x) >absf(p1.x - p3.x)) ? absf(p1.x - p2.x) : absf(p1.x - p2.x);
-	dis_height = (dis_height > absf(p2.x - p3.x)) ? dis_height : absf(p2.x - p3.x);
-
-
-	for (int y = (int)dis_height; y > 0; y--)
-	{
-		for (int x = 0; x < (int)dis_width; x++)
-		{
-
-		}
-	}
+	
+	
 
 
 
@@ -147,21 +135,21 @@ void draw_vertex_array(int mode, int first, int count)
 			vec4_t p1 = vertexArrayPoint[idx];
 
 
-			p1 = (vec4_t){ p1.x , p1.y  , p1.z  , p1.w };
+			p1 = (vec4_t){ p1.x , p1.y  , p1.z  , 1.F};
 			p1 = mul_v4m4(&p1, &g_model_scale);
 			p1 = mul_v4m4(&p1, &g_model_rotate);
 			p1 = mul_v4m4(&p1, &g_model_translate);
-
+			
 
 
 			vec4_t p2 = vertexArrayPoint[(idx + 1) % count];
 
-			p2 = (vec4_t){ p2.x  , p2.y  , p2.z  , p2.w };
+			p2 = (vec4_t){ p2.x  , p2.y  , p2.z  , 1.F };
 			p2 = mul_v4m4(&p2, &g_model_scale);
 			p2 = mul_v4m4(&p2, &g_model_rotate);
 			p2 = mul_v4m4(&p2, &g_model_translate);
 
-			draw_line_legacy(p1, p2);
+			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p2, &p1, p2.w , p1.w);
 
 
 
@@ -176,33 +164,40 @@ void draw_vertex_array(int mode, int first, int count)
 
 
 			vec4_t p1 = vertexArrayPoint[idx];
-
-
-			p1 = (vec4_t){ p1.x , p1.y  , p1.z  , p1.w };
+			float p1_alpha = p1.w;
+			p1 = (vec4_t){ p1.x , p1.y  , p1.z  , 1.F };
 			p1 = mul_v4m4(&p1, &g_model_scale);
 			p1 = mul_v4m4(&p1, &g_model_rotate);
 			p1 = mul_v4m4(&p1, &g_model_translate);
-
-
+			p1 = mul_v4m4(&p1, &g_view);
 
 			vec4_t p2 = vertexArrayPoint[(idx + 1) % count];
-
-			p2 = (vec4_t){ p2.x  , p2.y  , p2.z  , p2.w };
+			float p2_alpha = p2.w;
+			p2 = (vec4_t){ p2.x  , p2.y  , p2.z  , 1.F };
 			p2 = mul_v4m4(&p2, &g_model_scale);
 			p2 = mul_v4m4(&p2, &g_model_rotate);
 			p2 = mul_v4m4(&p2, &g_model_translate);
-
-
+			p2 = mul_v4m4(&p2, &g_view);
+			
 			vec4_t p3 = vertexArrayPoint[(idx + 2) % count];
-
-			p3 = (vec4_t){ p3.x  , p3.y  , p3.z  , p3.w };
+			float p3_alpha = p3.w;
+			p3 = (vec4_t){ p3.x  , p3.y  , p3.z  , 1.F };
 			p3 = mul_v4m4(&p3, &g_model_scale);
 			p3 = mul_v4m4(&p3, &g_model_rotate);
 			p3 = mul_v4m4(&p3, &g_model_translate);
+			p3 = mul_v4m4(&p3, &g_view);
 
-			draw_line_legacy(p1, p2);
-			draw_line_legacy(p2, p3);
-			draw_line_legacy(p3, p1);
+
+			//projection을 통해 z축을 xy축에 반영 필요
+			ivec2_t p1_v2i = {(int)p1.x , (int)p1.y};
+			ivec2_t p2_v2i = { (int)p2.x , (int)p2.y };
+			ivec2_t p3_v2i = { (int)p3.x , (int)p3.y };
+
+			
+	
+			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p1_v2i, &p2_v2i, p1_alpha, p2_alpha);
+			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p2_v2i, &p3_v2i, p2_alpha, p3_alpha);
+			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p3_v2i, &p1_v2i, p3_alpha, p1_alpha);
 
 		}
 	}
@@ -215,7 +210,7 @@ void draw_vertex_array(int mode, int first, int count)
 
 
 
-void draw_line(char* out_buffer, const size_t width, const size_t height, const ivec2_t* const start_point, const ivec2_t* const dest_point,char pixel)
+void draw_line(char* out_buffer, const size_t width, const size_t height, const ivec2_t* const start_point, const ivec2_t* const dest_point,const float start_point_alpha, const float dest_point_alpha)
 {
 	float dis_xf = (float)dest_point->v[0] - (float)start_point->v[0];
 	float dis_yf = (float)dest_point->v[1] - (float)start_point->v[1];
@@ -236,8 +231,14 @@ void draw_line(char* out_buffer, const size_t width, const size_t height, const 
 
 		int put_xpos = (int)(cur_xf + origin_x);
 		int put_ypos = (int)(cur_yf * (-1.F) + origin_y);
-		out_buffer[put_ypos * (int)(width+1) + put_xpos] = pixel;
-		
+		float alpha_weight = i / totalDisi;
+		float alpha = (1.F - alpha_weight) * start_point_alpha + alpha_weight * dest_point_alpha;
+
+		char pixel = ASCII_BRIGHTNESS[(int)(alpha * 68) % 69];
+		if (0 <= put_xpos && put_xpos < width && 0 <= put_ypos && put_ypos < (height-1))
+		{
+			out_buffer[put_ypos * (int)(width + 1) + put_xpos] = pixel;
+		}
 	
 	}
 

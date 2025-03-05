@@ -6,6 +6,7 @@
 
 #include "math.h"
 
+
 void scale_object(vec3_t v);
 void translate_object(vec3_t v);
 void rotate_object(float angle, vec3_t v);
@@ -17,4 +18,4 @@ void projection_screen(float left, float right, float bottom, float top, float n
 void set_vertex_array(vec4_t* pointer);
 void draw_vertex_array(int mode, int first, int count);
 
-void draw_line(char* out_buffer, const size_t width, const size_t height, const ivec2_t* const start_point, const ivec2_t* const dest_point, char pixel);
+void draw_line(char* out_buffer, const size_t width, const size_t height, const ivec2_t* const start_point, const ivec2_t* const dest_point,const float start_point_alpha, const float dest_point_alpha);
