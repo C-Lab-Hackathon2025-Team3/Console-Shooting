@@ -109,7 +109,7 @@ int main(void)
 
 	while (1)
 	{
-		set_vertex_array(tri);
+		set_vertex_array(cube_vertex_buf);
 		draw_vertex_array(DRAW_LINE_TRIANGLES, 0, 3);
 
 		draw_screen();

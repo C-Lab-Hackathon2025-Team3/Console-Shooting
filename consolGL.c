@@ -254,13 +254,13 @@ void draw_vertex_array(int mode, int first, int count)
 			ivec2_t p2_v2i = { (int)p2.x , (int)p2.y };
 			ivec2_t p3_v2i = { (int)p3.x , (int)p3.y };
 
-			push_pixel('*', p1_v2i.x + get_screen_width()/2, -1 *p1_v2i.y + get_screen_height()/2 - 1);
-			push_pixel('*', p2_v2i.x + get_screen_width()/2, -1 *p2_v2i.y  + get_screen_height() / 2 - 1);
-			push_pixel('*', p3_v2i.x + get_screen_width()/2, -1 *p3_v2i.y + get_screen_height() / 2 - 1);
+			//push_pixel('*', p1_v2i.x + get_screen_width()/2, -1 *p1_v2i.y + get_screen_height()/2 - 1);
+			//push_pixel('*', p2_v2i.x + get_screen_width()/2, -1 *p2_v2i.y  + get_screen_height() / 2 - 1);
+			//push_pixel('*', p3_v2i.x + get_screen_width()/2, -1 *p3_v2i.y + get_screen_height() / 2 - 1);
 			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p1_v2i, &p2_v2i, p1_alpha, p2_alpha);
 			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p2_v2i, &p3_v2i, p2_alpha, p3_alpha);
 			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p3_v2i, &p1_v2i, p3_alpha, p1_alpha);
-			draw_polygon(p1 , p2 , p3);
+			//draw_polygon(p1 , p2 , p3);
 
 		}
 	}
