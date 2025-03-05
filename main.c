@@ -55,9 +55,9 @@ int main(void)
 {
 
 	vec4_t tri[3] = {
-			{ 0.F  , 0.F ,0.F ,1.F},
-			{ 0.1F ,  0.15F ,0.F ,1.F},
-			{ 0.2F , -0.1F,0.F ,1.F},
+			{ -1.F , 0.F ,0.F ,1.F},
+			{ 0.F ,  1.F ,0.F ,1.F},
+			{ 1.F , 0.F,0.F ,1.F},
 	};
 
 	vec4_t cube[8] = {
@@ -109,8 +109,8 @@ int main(void)
 
 	while (1)
 	{
-		set_vertex_array(cube_vertex_buf);
-		draw_vertex_array(DRAW_LINE_TRIANGLES, 0, 36);
+		set_vertex_array(tri);
+		draw_vertex_array(DRAW_LINE_TRIANGLES, 0, 3);
 
 		draw_screen();
 		clear_screen();

@@ -114,8 +114,69 @@ void draw_line_legacy(vec4_t start_pont, vec4_t dst_point)
 void draw_polygon(vec4_t p1, vec4_t p2, vec4_t p3)
 {
 	//edge line
+	float max_y = p1.y;
+	float min_y = p1.y;
+	float max_x = p1.x;
+	float min_x = p1.x;
+
+	if (max_y > p2.y)
+		min_y = p2.y;
+	else
+		max_y = p2.y;
+
+	if (p3.y > max_y)
+		max_y = p3.y;
+	else if (p3.y < min_y)
+		min_y = p3.y;
+
+
+	if (max_x > p2.x)
+		min_x = p2.x;
+	else
+		max_x = p2.x;
+
+	if (p3.x > max_x)
+		max_x = p3.x;
+	else if (p3.x < min_x)
+		min_x = p3.x;
+
+	//min_x 크기 만큼 더하고 min_y 크기 만큼 더해서0점 맞추기
+	int width_i = (int)(max_x - max_y);
+	int height_i = (int)(max_y - min_y);
+	float width_f = max_x - max_y;
+	float height_f = max_y - min_y;
 	
 	
+	float min_x_absf = absf(min_x);
+	float min_y_absf = absf(min_y);
+
+	float gradient_p1p2 = (p1.y - p2.y) / (p1.x - p2.x);
+	float intercept_y_p1p2 = p1.y - gradient_p1p2 * p1.x + min_y_absf; // y 절편 보정 
+
+	float gradient_p1p3 = (p1.y - p3.y) / (p1.x - p3.x);
+	float intercept_y_p1p3 = p1.y - gradient_p1p3 * p1.x + min_y_absf;
+
+	float gradient_p2p3 = (p2.y - p3.y) / (p2.x - p3.x);
+	float intercept_y_p2p3 = p2.y - gradient_p2p3 * p2.x + min_y_absf;
+
+
+	for (int cur_y = height_i - 1; cur_y > 0; --cur_y)
+	{
+		float draw_point_1_x_f = ((float)cur_y - intercept_y_p1p2)/ gradient_p1p2 ;
+		float draw_point_2_x_f = ((float)cur_y - intercept_y_p1p3)/ gradient_p1p3 ;
+
+		if(draw_point_1_x_f + min_x_absf < 0) draw_point_1_x_f = ((float)cur_y - intercept_y_p2p3) / gradient_p2p3;
+		else if (draw_point_2_x_f + min_x_absf < 0) draw_point_2_x_f = ((float)cur_y - intercept_y_p2p3) / gradient_p2p3;
+
+		ivec2_t draw_point_1_v2i = { (int)draw_point_1_x_f  , cur_y - min_y_absf };
+		ivec2_t draw_point_2_v2i = { (int)draw_point_2_x_f  , cur_y - min_y_absf };
+
+		draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &draw_point_1_v2i, &draw_point_2_v2i, 1.F, 1.F);
+
+
+	}
+
+
 
 
 
@@ -193,11 +254,13 @@ void draw_vertex_array(int mode, int first, int count)
 			ivec2_t p2_v2i = { (int)p2.x , (int)p2.y };
 			ivec2_t p3_v2i = { (int)p3.x , (int)p3.y };
 
-			
-	
+			push_pixel('*', p1_v2i.x + get_screen_width()/2, -1 *p1_v2i.y + get_screen_height()/2 - 1);
+			push_pixel('*', p2_v2i.x + get_screen_width()/2, -1 *p2_v2i.y  + get_screen_height() / 2 - 1);
+			push_pixel('*', p3_v2i.x + get_screen_width()/2, -1 *p3_v2i.y + get_screen_height() / 2 - 1);
 			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p1_v2i, &p2_v2i, p1_alpha, p2_alpha);
 			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p2_v2i, &p3_v2i, p2_alpha, p3_alpha);
 			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p3_v2i, &p1_v2i, p3_alpha, p1_alpha);
+			draw_polygon(p1 , p2 , p3);
 
 		}
 	}
@@ -206,8 +269,6 @@ void draw_vertex_array(int mode, int first, int count)
 
 	}
 }
-
-
 
 
 void draw_line(char* out_buffer, const size_t width, const size_t height, const ivec2_t* const start_point, const ivec2_t* const dest_point,const float start_point_alpha, const float dest_point_alpha)
