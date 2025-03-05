@@ -4,7 +4,7 @@
 #define DRAW_LINE_TRIANGLES (1)
 #define DRAW_TRIANGLES (2)
 
-#include "math.h"
+#include "affine_math.h"
 
 
 void scale_object(vec3_t v);

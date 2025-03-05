@@ -1,6 +1,6 @@
 #include <math.h>
 #include <stdio.h>
-#include "math.h"
+#include "affine_math.h"
 
 
 vec4_t add_v4v4(const vec4_t* v1,const vec4_t* v2)
