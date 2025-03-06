@@ -97,6 +97,14 @@ vec3_t cross_v3(const vec3_t* v1, const vec3_t* v2)
 						(v1->x * v2->y - v1->y * v2->x)
 	};
 }
+
+float cross_v2(const vec2_t* v1,const vec2_t* v2)
+{
+	return (float)((v1->x * v2->y) - (v1->y * v2->x));
+}
+
+
+
 float dot_v3(const vec3_t* v1, const vec3_t* v2)
 {
 	return (float) {v1->x* v2->x + v1->y * v2->y + v1->z * v2->z };
@@ -106,6 +114,11 @@ float length_v4(const vec4_t* v);
 float length_v3(const vec3_t* v)
 {
 	return sqrtf(v->x*v->x + v->y * v->y + v->z * v->z);
+}
+
+float length_v2(const vec2_t* v)
+{
+	return sqrtf(v->x * v->x + v->y * v->y);
 }
 
 vec4_t normalize_v4(const vec4_t* v);
@@ -210,8 +223,8 @@ mat4_t projection(float left, float right, float bottom, float top, float near, 
 	return (mat4_t) {
 		2*near/(right-left) , 0.F , 0.F , 0.F ,
 		0.F , 2*near/(top-bottom) , 0.F , 0.F ,
-		(right + left) / (right - left) , (top + bottom) / (top - bottom) , -(far + near) / (far - near) , -1.F,
-		0.F, 0.F, -(2 * far * near) / (far - near), 0.F
+		0.F, 0, (far + near) / (far - near) , -1.F,
+		0.F, 0.F, ( far * near) / (near- far), 0.F
 	};
 }
 

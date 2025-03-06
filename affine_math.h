@@ -96,7 +96,7 @@ vec3_t normalize_v3(const vec3_t* v);
 
 float length_v4(const vec4_t* v);
 float length_v3(const vec3_t* v);
-
+float length_v2(const vec2_t* v);
 
 mat4_t translate(const mat4_t* m, const vec3_t* v);
 mat4_t rotate(const mat4_t* m,float angle,const vec3_t* v);

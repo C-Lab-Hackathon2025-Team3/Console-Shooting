@@ -2,15 +2,16 @@
 #include "console_screen.h"
 #include <conio.h>
 #define SCREEN_WIDTH 100
-#define SCREEN_HEGITH 50
+#define SCREEN_HEGITH 100
 
 float dx = 0;
 float dy = 0;
+float dz = 0;
 float angle_y = 0.F;
 float angle_z = 0.F;
 float angle_x = 0.F;
 float camAngle = 0.F;
-vec3_t eye = { 0.F , 50.F , -100.F };
+vec3_t eye = { 0.F , 10.F , -20.F };
 vec3_t center = { 0.F , 0.F  , 0.F };
 vec3_t up = { 0.F , 1.F , 0.F };
 
@@ -33,13 +34,14 @@ void eventCall()
 		angle_y += +0.1F;
 	else if (key == 'r')
 	{
-		camAngle += 0.1F;
+		dz += 1.F;
 	}
+	
 	
 
 	vec3_t rotate_v = { 0.F , 1.F , 0.F };
 	
-	vec3_t translate = {dx , dy , 0};
+	vec3_t translate = {dx , dy , dz};
 
 	rotate_object(angle_y , rotate_v);
 
@@ -55,7 +57,7 @@ int main(void)
 {
 
 	vec4_t tri[3] = {
-			{ -1.F , 0.F ,0.F ,1.F},
+			{ -1.F  , 0.F ,0.F ,1.F},
 			{ 0.F ,  1.F ,0.F ,1.F},
 			{ 1.F , 0.F,0.F ,1.F},
 	};
@@ -75,23 +77,24 @@ int main(void)
 
 
 	int indices[36] = {
+		//p1 , p2 , p3
 		5,4,0,
-		0,1,5,
+		5,0,1,
 
 		7,5,1,
-		1,3,7,
+		7,1,3,
 
 		6,7,3,
-		3,2,6,
+		6,3,2,
 
 		4,6,2,
-		2,0,4,
+		4,2,0,
 
 		3,1,0,
-		0,2,3,
+		3,0,2,
 
 		6,4,5,
-		5,7,6
+		6,5,7
 	};
 
 	vec4_t cube_vertex_buf[36];
@@ -104,13 +107,19 @@ int main(void)
 	
 	
 	
-	scale_object((vec3_t) {10.F  ,10.F ,10.F});
+	scale_object((vec3_t) {15.F ,15.F ,15.F});
 	view_cam(eye, center, up);
+	projection_screen((float)SCREEN_WIDTH/2, -(float)SCREEN_WIDTH / 2.F ,(float)SCREEN_HEGITH/2.F, -(float)SCREEN_HEGITH/2.F, -35.F, +100.F);
 
 	while (1)
 	{
 		set_vertex_array(cube_vertex_buf);
-		draw_vertex_array(DRAW_LINE_TRIANGLES, 0, 3);
+		translate_object((vec3_t) { -30.F, 0.F, 0.F });
+		draw_vertex_array(DRAW_TRIANGLES, 0, 36);
+
+		translate_object((vec3_t) {30.F , 0.F , 0.F});
+		draw_vertex_array(DRAW_TRIANGLES, 0, 36);
+
 
 		draw_screen();
 		clear_screen();
