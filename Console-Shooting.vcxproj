@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="console_screen.c" />
     <ClCompile Include="consolGL.c" />
+    <ClCompile Include="convert_screen.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="affine_math.c" />
   </ItemGroup>
@@ -136,6 +137,7 @@
     <ClInclude Include="console_screen.h" />
     <ClInclude Include="consolGL.h" />
     <ClInclude Include="affine_math.h" />
+    <ClInclude Include="convert_screen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

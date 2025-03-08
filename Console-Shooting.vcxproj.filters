@@ -27,6 +27,9 @@
     <ClCompile Include="affine_math.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="convert_screen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console_screen.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="affine_math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="convert_screen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,7 +11,7 @@ float angle_y = 0.F;
 float angle_z = 0.F;
 float angle_x = 0.F;
 float camAngle = 0.F;
-vec3_t eye = { 0.F , 10.F , -20.F };
+vec3_t eye = { 0.F , 5.F , -10.F };
 vec3_t center = { 0.F , 0.F  , 0.F };
 vec3_t up = { 0.F , 1.F , 0.F };
 
@@ -78,23 +78,29 @@ int main(void)
 
 	int indices[36] = {
 		//p1 , p2 , p3
-		5,4,0,
-		5,0,1,
+		//bottom
+		5,4,0,  // 0 1 2
+		5,0,1,  // 3 4 5
 
-		7,5,1,
-		7,1,3,
+		//back
+		7,5,1,	// 6 7 8
+		7,1,3,	// 9 10 11
 
-		6,7,3,
-		6,3,2,
+		//top
+		6,7,3,	//12 13 14
+		6,3,2,	//15 16 17
 
-		4,6,2,
-		4,2,0,
+		//front
+		4,6,2,	//18 19 20
+		4,2,0,	//21 22 23
 
-		3,1,0,
-		3,0,2,
+		//left
+		3,1,0,	//24 25 26
+		3,0,2,	//27 28 29
 
-		6,4,5,
-		6,5,7
+		//right
+		6,4,5,	//30 31 32
+		6,5,7	//33 34 35
 	};
 
 	vec4_t cube_vertex_buf[36];
@@ -107,18 +113,18 @@ int main(void)
 	
 	
 	
-	scale_object((vec3_t) {15.F ,15.F ,15.F});
+	scale_object((vec3_t) {10.F ,10.F ,10.F});
 	view_cam(eye, center, up);
-	projection_screen((float)SCREEN_WIDTH/2, -(float)SCREEN_WIDTH / 2.F ,(float)SCREEN_HEGITH/2.F, -(float)SCREEN_HEGITH/2.F, -35.F, +100.F);
+	projection_screen(-(float)SCREEN_WIDTH/2.F, (float)SCREEN_WIDTH / 2.F ,-(float)SCREEN_HEGITH/2.F, (float)SCREEN_HEGITH/2.F, -20.F, 30.F);
 
 	while (1)
 	{
 		set_vertex_array(cube_vertex_buf);
-		translate_object((vec3_t) { -30.F, 0.F, 0.F });
-		draw_vertex_array(DRAW_TRIANGLES, 0, 36);
+		translate_object((vec3_t) { 0.F, 0.F, 0.F });
+		draw_vertex_array(DRAW_TRIANGLES, 24, 36);
 
-		translate_object((vec3_t) {30.F , 0.F , 0.F});
-		draw_vertex_array(DRAW_TRIANGLES, 0, 36);
+		//translate_object((vec3_t) {50.F , 0.F , 0.F});
+		//draw_vertex_array(DRAW_TRIANGLES, 0, 36);
 
 
 		draw_screen();

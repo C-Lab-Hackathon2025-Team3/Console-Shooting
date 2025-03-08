@@ -221,10 +221,10 @@ mat4_t lookAt(const vec3_t* eye,const vec3_t* center,const vec3_t* up)
 mat4_t projection(float left, float right, float bottom, float top, float near, float far)
 {
 	return (mat4_t) {
-		2*near/(right-left) , 0.F , 0.F , 0.F ,
-		0.F , 2*near/(top-bottom) , 0.F , 0.F ,
-		0.F, 0, (far + near) / (far - near) , -1.F,
-		0.F, 0.F, ( far * near) / (near- far), 0.F
+		2.F / (right - left), 0.F, 0.F, 0.F,
+			0.F , 2/(top-bottom) , 0.F , 0.F,
+			0.F , 0.F , 2/(far - near) , 0.F ,
+		-(left + right) / (right - left) , -(top+bottom)/(top - bottom) , -(far + near) / (far - near) , 1.F
 	};
 }
 

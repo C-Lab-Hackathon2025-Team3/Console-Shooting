@@ -29,7 +29,7 @@ void init_screen(size_t width, size_t height)
 	{
 		for (size_t j = 0; j < width; j++)
 		{
-			g_output_buffer[i * g_pitch + j] = ' ';
+			g_output_buffer[i * g_pitch + j] = '.';
 		}
 		g_output_buffer[i * g_pitch + width] = '\n';
 	}
@@ -64,7 +64,7 @@ void clear_screen(void)
 	{
 		for (size_t j = 0; j < g_width; j++)
 		{
-			g_output_buffer[i * g_pitch + j] = ' ';
+			g_output_buffer[i * g_pitch + j] = '.';
 		}
 	}
 }

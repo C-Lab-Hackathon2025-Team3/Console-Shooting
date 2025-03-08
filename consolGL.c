@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include "convert_screen.h"
 #include "console_screen.h"
 #include "consolGL.h"
 
@@ -99,11 +100,9 @@ void draw_line_legacy(vec4_t start_pont, vec4_t dst_point,float start_point_alph
 
 	for (int i = 0; i < totalDisi + 1; i++, cur_xf += inc_xf, cur_yf += inc_yf)
 	{
-		float origin_x = (float)get_screen_width() / 2;
-		float origin_y = (float)get_screen_height() / 2;
 
-		int put_xpos = (int)(cur_xf + origin_x);
-		int put_ypos = (int)(cur_yf * (-1.F) + origin_y);
+		int put_xpos = (int)(cur_xf);
+		int put_ypos = (int)(cur_yf);
 
 		float alpha_weight = (float)i /(float) totalDisi;
 		float alpha = (1.F - alpha_weight) * start_point_alpha + alpha_weight * dest_point_alpha;
@@ -162,13 +161,11 @@ void draw_polygon(vec4_t p1, vec4_t p2, vec4_t p3 , float p1_alpha , float p2_al
 			float edge2 = (line_p2p3_2f.x * p2_cur_point_2f.y) - (line_p2p3_2f.y * p2_cur_point_2f.x);
 			float edge3 = (line_p3p1_2f.x * p3_cur_point_2f.y) - (line_p3p1_2f.y * p3_cur_point_2f.x);
 
-			if ((edge1 > 0) && (edge2 > 0) && (edge3 > 0))//Light Handle inner triangle Test
+			if ((edge1 < 0) && (edge2 < 0) && (edge3 < 0))//Light Handle inner triangle Test
 			{
-				float origin_x = (float)get_screen_width() / 2;
-				float origin_y = (float)get_screen_height() / 2;
-
-				int put_xpos = (int)((cur_point_2f.x) + origin_x);
-				int put_ypos = (int)((cur_point_2f.y) * (-1.F) + origin_y-1);
+			
+				int put_xpos = (int)(cur_point_2f.x);
+				int put_ypos = (int)(cur_point_2f.y);
 
 				float len_p1_cur_f = length_v2(&p1_cur_point_2f);
 				float len_p2_cur_f = length_v2(&p2_cur_point_2f);
@@ -312,17 +309,18 @@ void draw_vertex_array(int mode, int first, int count)
 			p3 = mul_v4m4(&p3, &g_projection);
 
 
+			
 
-			ivec2_t p1_v2i = { (int)p1.x , (int)p1.y };
-			ivec2_t p2_v2i = { (int)p2.x , (int)p2.y };
-			ivec2_t p3_v2i = { (int)p3.x , (int)p3.y };
+			convert_screen_coordinate(p1.x , p1.y , &p1.x , &p1.y);
+			convert_screen_coordinate(p2.x, p2.y, &p2.x, &p2.y);
+			convert_screen_coordinate(p3.x, p3.y, &p3.x, &p3.y);
 
 
-
+			draw_polygon(p1, p2, p3, p1_alpha, p2_alpha, p3_alpha);
 			draw_line_legacy(p1 , p2 , p1_alpha, p2_alpha);
 			draw_line_legacy(p2 , p3 , p2_alpha, p3_alpha);
 			draw_line_legacy(p3 , p1 , p3_alpha, p1_alpha);
-			draw_polygon(p1, p2, p3, p1_alpha, p2_alpha , p3_alpha);
+			
 
 		}
 	
