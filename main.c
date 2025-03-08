@@ -1,5 +1,6 @@
 #include "consolGL.h"
 #include "console_screen.h"
+#include "z_buffer_screen.h"
 #include <conio.h>
 #define SCREEN_WIDTH 100
 #define SCREEN_HEGITH 100
@@ -110,31 +111,33 @@ int main(void)
 		cube_vertex_buf[idx] = cube[indices[idx]];
 	}
 	init_screen(SCREEN_WIDTH, SCREEN_HEGITH);
-	
+	init_depth_buffer(SCREEN_WIDTH , SCREEN_HEGITH);
 	
 	
 	scale_object((vec3_t) {10.F ,10.F ,10.F});
 	view_cam(eye, center, up);
-	projection_screen(-(float)SCREEN_WIDTH/2.F, (float)SCREEN_WIDTH / 2.F ,-(float)SCREEN_HEGITH/2.F, (float)SCREEN_HEGITH/2.F, -20.F, 30.F);
+	projection_screen(-(float)SCREEN_WIDTH/2.F, (float)SCREEN_WIDTH / 2.F ,-(float)SCREEN_HEGITH/2.F, (float)SCREEN_HEGITH/2.F, -20.F, 40.F);
 
 	while (1)
 	{
 		set_vertex_array(cube_vertex_buf);
 		translate_object((vec3_t) { 0.F, 0.F, 0.F });
-		draw_vertex_array(DRAW_TRIANGLES, 24, 36);
+		draw_vertex_array(DRAW_TRIANGLES, 0, 36);
 
 		//translate_object((vec3_t) {50.F , 0.F , 0.F});
 		//draw_vertex_array(DRAW_TRIANGLES, 0, 36);
 
 
 		draw_screen();
+		
+		clear_depth_buffer();
 		clear_screen();
 		eventCall();
 
 		
 	}
 
-
+	release_depth_buffer();
 	release_screen();
 	return 0;
 }

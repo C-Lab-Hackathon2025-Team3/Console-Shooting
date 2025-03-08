@@ -3,6 +3,7 @@
 #include <assert.h>
 #include "convert_screen.h"
 #include "console_screen.h"
+#include "z_buffer_screen.h"
 #include "consolGL.h"
 
 int g_state_screen_close;
@@ -106,9 +107,11 @@ void draw_line_legacy(vec4_t start_pont, vec4_t dst_point,float start_point_alph
 
 		float alpha_weight = (float)i /(float) totalDisi;
 		float alpha = (1.F - alpha_weight) * start_point_alpha + alpha_weight * dest_point_alpha;
-
+		float z_value = (1.F - alpha_weight) * start_pont.z + alpha_weight * dst_point.z;
 		char pixel = ASCII_BRIGHTNESS[(int)(alpha * 68) % 69];
-		push_pixel(pixel, put_xpos, put_ypos);
+
+		if (is_depth_test(put_xpos, put_ypos, z_value))
+			push_pixel(pixel, put_xpos, put_ypos);
 	}
 
 
@@ -178,10 +181,10 @@ void draw_polygon(vec4_t p1, vec4_t p2, vec4_t p3 , float p1_alpha , float p2_al
 				
 				float alpha_weight =(cur_y - min_y) / height_f;
 				float alpha = p1_weight_f * p1_alpha + p2_weight_f * p2_alpha + p3_weight_f* p3_alpha;
-				
+				float z_value = p1_weight_f * p1.z + p2_weight_f * p2.z + p3_weight_f * p3.z;
 				char pixel = ASCII_BRIGHTNESS[(int)(alpha * 68) % 69];
-
-				push_pixel(pixel, put_xpos, put_ypos);
+				if (is_depth_test(put_xpos, put_ypos , z_value))
+					push_pixel(pixel, put_xpos, put_ypos);
 			}
 				
 

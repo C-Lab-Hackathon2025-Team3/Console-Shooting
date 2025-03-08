@@ -223,8 +223,8 @@ mat4_t projection(float left, float right, float bottom, float top, float near, 
 	return (mat4_t) {
 		2.F / (right - left), 0.F, 0.F, 0.F,
 			0.F , 2/(top-bottom) , 0.F , 0.F,
-			0.F , 0.F , 2/(far - near) , 0.F ,
-		-(left + right) / (right - left) , -(top+bottom)/(top - bottom) , -(far + near) / (far - near) , 1.F
+			0.F , 0.F , -2/(far - near) , 0.F ,
+		-(left + right) / (right - left) , (top+bottom)/(top - bottom) , -(far + near) / (far - near) , 1.F
 	};
 }
 
