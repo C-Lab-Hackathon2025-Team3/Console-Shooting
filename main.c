@@ -1,42 +1,33 @@
-#include <math.h>
-#include "def.h"
-#include "console_screen.h"
-#include "convert_screen.h"
-#include "polygon.h"
+#include <stdio.h>
+#include <stdlib.h>
+#if defined(_WIN32)
+#include <Windows.h>
+#else
+#include <unistd.h>  // sleep()
+#endif
+#include "console_screen.h"  
+#include "convert_screen.h"  
+#include "player.h"         
 
-int main(void)
-{
-	init_screen(40, 20);
-	
-	draw_point(0, 0, ASCII_BRIGHTNESS[BIRGHTNESS_RANGE / 2]);
-	draw_point(0.5, 0.5, ASCII_BRIGHTNESS[BIRGHTNESS_RANGE / 2]);
-	draw_point(0.5, -0.5, ASCII_BRIGHTNESS[BIRGHTNESS_RANGE / 2]);
-	draw_point(-0.5, 0.5, ASCII_BRIGHTNESS[BIRGHTNESS_RANGE / 2]);
-	draw_point(-0.5, -0.5, ASCII_BRIGHTNESS[BIRGHTNESS_RANGE / 2]);
-	draw_point(-1, -1, ASCII_BRIGHTNESS[BIRGHTNESS_RANGE / 2]);
-	draw_point(-1, -0.5F, ASCII_BRIGHTNESS[BIRGHTNESS_RANGE / 2]);
-	
-<<<<<<< Updated upstream
-=======
-	
-	scale_object((vec3_t) {10.F  ,10.F ,10.F});
-	view_cam(eye, center, up);
+int main() {
+    int centerX = get_screen_width() / 2;
+    int centerY = get_screen_height() / 2;
+    int radius = 5;
 
-	while (1)
-	{
-		set_vertex_array(cube_vertex_buf);
-		draw_vertex_array(DRAW_LINE_TRIANGLES, 0, 36);
+    // 화면 초기화
+    init_screen(get_screen_width(), get_screen_height());
 
-		draw_screen();
-		clear_screen();
-		eventCall();
 
-		
-	}
+    draw_player(centerX, centerY, radius);
 
->>>>>>> Stashed changes
+    draw_screen();
 
-	draw_screen();
-	release_screen();
-	return 0;
+    clear_screen();
+
+    getchar();  // getch() 대신 getchar() 사용
+
+    // 리소스 해제
+    release_screen();
+
+    return 0;
 }

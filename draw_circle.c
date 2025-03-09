@@ -1,17 +1,15 @@
-#include "draw_circle.h"
 #include <stdio.h>
-
-#define SCREEN_WIDTH 100
-#define SCREEN_HEIGHT 30
+#include "draw_circle.h"
+#include "console_screen.h"
 
 // 화면에 픽셀을 출력하는 함수
-void push_pixel(char pixel, int x, int y) {
-    if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT) {
-        // 콘솔에 픽셀을 출력하는 코드
-        // x, y 좌표가 화면 범위 내에 있을 때만 출력
-        printf("\033[%d;%dH%c", y + 1, x + 1, pixel); // ANSI Escape Code로 위치 지정 후 출력
-    }
-}
+//void push_pixel(char pixel, int x, int y) {
+//    if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT) {
+//        // 콘솔에 픽셀을 출력하는 코드
+//        // x, y 좌표가 화면 범위 내에 있을 때만 출력
+//        printf("\033[%d;%dH%c", y + 1, x + 1, pixel); // ANSI Escape Code로 위치 지정 후 출력
+//    }
+//}
 
 // 원을 그리는 함수
 void draw_circle(Circle* circle) {

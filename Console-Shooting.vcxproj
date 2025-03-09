@@ -129,13 +129,17 @@
   <ItemGroup>
     <ClCompile Include="console_screen.c" />
     <ClCompile Include="convert_screen.c" />
+    <ClCompile Include="draw_circle.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="player.c" />
     <ClCompile Include="polygon.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console_screen.h" />
     <ClInclude Include="convert_screen.h" />
     <ClInclude Include="def.h" />
+    <ClInclude Include="draw_circle.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="polygon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

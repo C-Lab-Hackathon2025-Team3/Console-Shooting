@@ -28,5 +28,19 @@ typedef union
 	};
 }fvec2_t;
 
+typedef union
+{
+	struct
+	{
+		float v[4];
+	};
+	struct
+	{
+		float x;
+		float y;
+		float z;
+		float w;
+	};
+} fvec4_t;
 
 #endif
