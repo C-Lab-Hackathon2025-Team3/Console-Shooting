@@ -1,6 +1,7 @@
 #include "consolGL.h"
 #include "console_screen.h"
 #include "z_buffer_screen.h"
+#include <math.h>
 #include <conio.h>
 #define SCREEN_WIDTH 100
 #define SCREEN_HEGITH 100
@@ -11,7 +12,11 @@ float dz = 0;
 float angle_y = 0.F;
 float angle_z = 0.F;
 float angle_x = 0.F;
-float camAngle = 0.F;
+float camAngle_x = 0.785398F;
+float camAngle_y = 0.785398F;
+float camAngle_z = 0.785398F;
+float cam_r = 5.F;
+
 vec3_t eye = { 0.F , 5.F , -10.F };
 vec3_t center = { 0.F , 0.F  , 0.F };
 vec3_t up = { 0.F , 1.F , 0.F };
@@ -48,9 +53,7 @@ void eventCall()
 
 	translate_object(translate);
 
-	eye.x = sin(camAngle);
-	eye.z = -cos(camAngle);
-	//view_cam(eye, center, up);
+	
 
 }
 
@@ -116,16 +119,14 @@ int main(void)
 	
 	scale_object((vec3_t) {10.F ,10.F ,10.F});
 	view_cam(eye, center, up);
-	projection_screen(-(float)SCREEN_WIDTH/2.F, (float)SCREEN_WIDTH / 2.F ,-(float)SCREEN_HEGITH/2.F, (float)SCREEN_HEGITH/2.F, -20.F, 40.F);
+	projection_screen(-(float)SCREEN_WIDTH/2.F, (float)SCREEN_WIDTH / 2.F ,-(float)SCREEN_HEGITH/2.F, (float)SCREEN_HEGITH/2.F, -30.F, 80.F);
 
 	while (1)
 	{
 		set_vertex_array(cube_vertex_buf);
-		translate_object((vec3_t) { 0.F, 0.F, 0.F });
+		//translate_object((vec3_t) {-15.F, 0.F, 0.F });
 		draw_vertex_array(DRAW_TRIANGLES, 0, 36);
 
-		//translate_object((vec3_t) {50.F , 0.F , 0.F});
-		//draw_vertex_array(DRAW_TRIANGLES, 0, 36);
 
 
 		draw_screen();
