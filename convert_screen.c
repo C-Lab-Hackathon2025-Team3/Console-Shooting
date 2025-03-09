@@ -11,6 +11,6 @@ void convert_screen_coordinate(const float x, const float y, int* const out_scre
 
 void draw_point(float x, float y, char pixel) {
 	int screenX, screenY;
-	convert_screen(x, y, &screenX, &screenY);
+	convert_screen_coordinate(x, y, &screenX, &screenY);
 	push_pixel(pixel, screenX, screenY);
 }
