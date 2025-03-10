@@ -22,7 +22,7 @@ vec3_t eye = { 0.F , 5.F , -10.F };
 vec3_t center = { 0.F , 0.F  , 0.F };
 vec3_t up = { 0.F , 1.F , 0.F };
 
-//�ﰢ�� ���� �׽�Ʈ�� ���� ũ�Ⱑ �󸶳� ������ ���� �ϴ� 999999 �� ��
+
 fvec4_t g_temp_sphere_buffer[999999];
 int g_temp_sphere_size =  0;
 
@@ -121,9 +121,9 @@ int main(void)
 	init_depth_buffer(SCREEN_WIDTH , SCREEN_HEGITH);
 	
 	
-	scale_object((vec3_t) {20.F ,10.F ,20.F});
+	scale_object((vec3_t) {10.F ,10.F ,10.F});
 	view_cam(eye, center, up);
-	projection_screen(-(float)SCREEN_WIDTH/2.F, (float)SCREEN_WIDTH / 2.F ,-(float)SCREEN_HEGITH/2.F, (float)SCREEN_HEGITH/2.F, -30.F, 80.F);
+	projection_screen(-(float)SCREEN_WIDTH/2.F, (float)SCREEN_WIDTH / 2.F ,-(float)SCREEN_HEGITH/2.F, (float)SCREEN_HEGITH/2.F, -80.F, 80.F);
 
 	gen_sphere(3 , cube_vertex_buf ,36, g_temp_sphere_buffer , &g_temp_sphere_size);
 
