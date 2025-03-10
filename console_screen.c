@@ -3,15 +3,18 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#define DEFAULT_HEIGHT (30)
+#define DEFAULT_WIDTH (60)
 
 const long* const TERMINATE_STR = "\x1B[H";
 const char ASCII_BRIGHTNESS[] = ".'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
 const char BIRGHTNESS_RANGE = sizeof(ASCII_BRIGHTNESS);
 
 char* g_output_buffer = NULL;
-size_t g_width = 0;
-size_t g_height = 0;
-size_t g_pitch = 0;
+size_t g_width = DEFAULT_WIDTH;
+size_t g_height = DEFAULT_HEIGHT;
+size_t g_pitch = DEFAULT_WIDTH + 1;
+
 char* get_screen_buffer(void)
 {
 	return g_output_buffer;

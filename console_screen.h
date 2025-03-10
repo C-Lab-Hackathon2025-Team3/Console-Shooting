@@ -1,8 +1,8 @@
 #pragma once
-#include <stdio.h>
-
 #ifndef CONSOLE_SCREEN_H
 #define CONSOLE_SCREEN_H
+
+#include <stdio.h>
 
 #if defined(DEBUG) || defined(_DEBUG)
 char* get_screen_buffer(void);

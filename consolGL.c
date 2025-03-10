@@ -49,7 +49,7 @@ mat4_t g_projection = {
 	0.F , 0.F , 1.F , 0.F,
 	0.F , 0.F , 0.F , 1.F
 };
-//º¯È¯ Àû¿ë ±¸ÇöºÎ
+//ë³€í™˜ ì ìš© êµ¬í˜„ë¶€
 
 void scale_object(vec3_t v) 
 {
@@ -137,7 +137,7 @@ void draw_polygon(vec4_t p1, vec4_t p2, vec4_t p3 , float p1_alpha , float p2_al
 	
 	
 
-	//min_x Å©±â ¸¸Å­ ´õÇÏ°í min_y Å©±â ¸¸Å­ ´õÇØ¼­0Á¡ ¸ÂÃß±â
+	//min_x í¬ê¸° ë§Œí¼ ë”í•˜ê³  min_y í¬ê¸° ë§Œí¼ ë”í•´ì„œ0ì  ë§ì¶”ê¸°
 	
 	float width_f = max_x - min_x;
 	float height_f = max_y - min_y;
@@ -145,7 +145,7 @@ void draw_polygon(vec4_t p1, vec4_t p2, vec4_t p3 , float p1_alpha , float p2_al
 	int width_i =(int) width_f;
 	int height_i = (int)height_f;
 
-	vec2_t line_p1p2_2f = { p2.x - p1.x , p2.y - p1.y }; // a , 1 , c  , 0 = ax -y +c ²ÃÀÇ ¼±Çü¹æÁ¤½Ä a ±â¿ï±â c 
+	vec2_t line_p1p2_2f = { p2.x - p1.x , p2.y - p1.y }; // a , 1 , c  , 0 = ax -y +c ê¼´ì˜ ì„ í˜•ë°©ì •ì‹ a ê¸°ìš¸ê¸° c 
 	vec2_t line_p2p3_2f = { p3.x - p2.x , p3.y - p2.y};
 	vec2_t line_p3p1_2f = { p1.x - p3.x , p1.y - p3.y};
 	
@@ -190,8 +190,6 @@ void draw_polygon(vec4_t p1, vec4_t p2, vec4_t p3 , float p1_alpha , float p2_al
 
 		}
 	}
-
-
 
 }
 
@@ -244,9 +242,8 @@ void draw_vertex_array(int mode, int first, int count)
 			p1 = mul_v4m4(&p1, &g_model_rotate);
 			p1 = mul_v4m4(&p1, &g_model_translate);
 			p1 = mul_v4m4(&p1, &g_view);
-			p1 = mul_v4m4(&p1, &g_projection);
 
-			
+			p1 = mul_v4m4(&p1, &g_projection);
 			vec4_t p2 = vertexArrayPoint[(idx + 1) % count];
 			float p2_alpha = p2.w;
 			p2 = (vec4_t){ p2.x  , p2.y  , p2.z  , 1.F };
@@ -254,6 +251,7 @@ void draw_vertex_array(int mode, int first, int count)
 			p2 = mul_v4m4(&p2, &g_model_rotate);
 			p2 = mul_v4m4(&p2, &g_model_translate);
 			p2 = mul_v4m4(&p2, &g_view);
+
 			p2 = mul_v4m4(&p2, &g_projection);
 			vec4_t p3 = vertexArrayPoint[(idx + 2) % count];
 			float p3_alpha = p3.w;
@@ -262,26 +260,25 @@ void draw_vertex_array(int mode, int first, int count)
 			p3 = mul_v4m4(&p3, &g_model_rotate);
 			p3 = mul_v4m4(&p3, &g_model_translate);
 			p3 = mul_v4m4(&p3, &g_view);
+
 			p3 = mul_v4m4(&p3, &g_projection);
 
 			p1 = (vec4_t){ p1.x / p1.w , p1.y / p1.w  , p1.z  , 1.F };
 			p2 = (vec4_t){ p2.x / p2.w  , p2.y / p2.w  , p2.z  , 1.F };
 			p3 = (vec4_t){ p3.x / p3.w , p3.y / p3.w , p3.z  , 1.F };
-			//projectionÀ» ÅëÇØ zÃàÀ» xyÃà¿¡ ¹İ¿µ ÇÊ¿ä
+			//projectionì„ í†µí•´ zì¶•ì„ xyì¶•ì— ë°˜ì˜ í•„ìš”
 			ivec2_t p1_v2i = {(int)p1.x , (int)p1.y};
 			ivec2_t p2_v2i = { (int)p2.x , (int)p2.y };
 			ivec2_t p3_v2i = { (int)p3.x , (int)p3.y };
 
-			
-			
 			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p1_v2i, &p2_v2i, p1_alpha, p2_alpha);
 			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p2_v2i, &p3_v2i, p2_alpha, p3_alpha);
 			draw_line(get_screen_buffer(), get_screen_width(), get_screen_height(), &p3_v2i, &p1_v2i, p3_alpha, p1_alpha);
-			
 		}
 	}
 	else if (mode == DRAW_TRIANGLES)
 	{
+
 		for (int idx = first; idx < count; idx += 3)
 		{
 
@@ -330,9 +327,6 @@ void draw_vertex_array(int mode, int first, int count)
 	}
 }
 
-
-
-
 void draw_line(char* out_buffer, const size_t width, const size_t height, const ivec2_t* const start_point, const ivec2_t* const dest_point,const float start_point_alpha, const float dest_point_alpha)
 {
 	float dis_xf = (float)dest_point->v[0] - (float)start_point->v[0];
@@ -360,6 +354,7 @@ void draw_line(char* out_buffer, const size_t width, const size_t height, const 
 		char pixel = ASCII_BRIGHTNESS[(int)(alpha * 68) % 69];
 		if (0 <= put_xpos && put_xpos < width && 0 <= put_ypos && put_ypos < (height-1))
 		{
+
 			out_buffer[put_ypos * (int)(width + 1) + put_xpos] = '*';
 		}
 	
