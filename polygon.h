@@ -1,10 +1,8 @@
 #pragma once
-
-#include "def.h"
-
 #ifndef POLYGON_H
 #define POLYGON_H
 
+#include "def.h"
 
 typedef struct polygon_list_s
 {
