@@ -33,6 +33,9 @@
     <ClCompile Include="z_buffer_screen.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="draw_sphere.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console_screen.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="z_buffer_screen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="draw_sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

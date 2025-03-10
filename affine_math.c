@@ -110,7 +110,10 @@ float dot_v3(const vec3_t* v1, const vec3_t* v2)
 	return (float) {v1->x* v2->x + v1->y * v2->y + v1->z * v2->z };
 }
 
-float length_v4(const vec4_t* v);
+float length_v4(const vec4_t* v)
+{
+	return sqrtf(v->x * v->x + v->y * v->y + v->z * v->z + v->w * v->w);
+}
 float length_v3(const vec3_t* v)
 {
 	return sqrtf(v->x*v->x + v->y * v->y + v->z * v->z);
@@ -121,7 +124,11 @@ float length_v2(const vec2_t* v)
 	return sqrtf(v->x * v->x + v->y * v->y);
 }
 
-vec4_t normalize_v4(const vec4_t* v);
+vec4_t normalize_v4(const vec4_t* v)
+{
+	float len = length_v4(v);
+	return (vec4_t) { v->x / len, v->y / len, v->z / len , v->w/len };
+}
 vec3_t normalize_v3(const vec3_t* v)
 {
 	float len = length_v3(v);

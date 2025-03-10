@@ -1,6 +1,7 @@
 #include "consolGL.h"
 #include "console_screen.h"
 #include "z_buffer_screen.h"
+#include "draw_sphere.h"
 #include <math.h>
 #include <conio.h>
 #define SCREEN_WIDTH 100
@@ -21,6 +22,9 @@ vec3_t eye = { 0.F , 5.F , -10.F };
 vec3_t center = { 0.F , 0.F  , 0.F };
 vec3_t up = { 0.F , 1.F , 0.F };
 
+//삼각형 분할 테스트용 버퍼 크기가 얼마나 나올지 몰라서 일단 999999 로 함
+vec4_t g_temp_sphere_buffer[999999];
+int g_temp_sphere_size =  0;
 
 void eventCall()
 {
@@ -117,15 +121,17 @@ int main(void)
 	init_depth_buffer(SCREEN_WIDTH , SCREEN_HEGITH);
 	
 	
-	scale_object((vec3_t) {10.F ,10.F ,10.F});
+	scale_object((vec3_t) {20.F ,10.F ,20.F});
 	view_cam(eye, center, up);
 	projection_screen(-(float)SCREEN_WIDTH/2.F, (float)SCREEN_WIDTH / 2.F ,-(float)SCREEN_HEGITH/2.F, (float)SCREEN_HEGITH/2.F, -30.F, 80.F);
 
+	gen_sphere(3 , cube_vertex_buf ,36, g_temp_sphere_buffer , &g_temp_sphere_size);
+
 	while (1)
 	{
-		set_vertex_array(cube_vertex_buf);
+		set_vertex_array(g_temp_sphere_buffer);
 		//translate_object((vec3_t) {-15.F, 0.F, 0.F });
-		draw_vertex_array(DRAW_TRIANGLES, 0, 36);
+		draw_vertex_array(DRAW_TRIANGLES, 0, g_temp_sphere_size);
 
 
 
