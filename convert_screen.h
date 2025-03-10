@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include "def.h"
 
 void convert_screen_coordinate(float x, float y, int *screenX, int *screenY);
