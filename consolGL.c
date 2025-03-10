@@ -78,13 +78,13 @@ void projection_screen(float left, float right, float bottom, float top, float n
 }
 
 
-vec4_t* vertexArrayPoint;
-void set_vertex_array(vec4_t* pointer)
+fvec4_t* vertexArrayPoint;
+void set_vertex_array(fvec4_t* pointer)
 {
-	vertexArrayPoint = (vec4_t*)pointer;
+	vertexArrayPoint = (fvec4_t*)pointer;
 }
 
-void draw_line_legacy(vec4_t start_pont, vec4_t dst_point,float start_point_alpha,float dest_point_alpha)
+void draw_line_legacy(fvec4_t start_pont, fvec4_t dst_point,float start_point_alpha,float dest_point_alpha)
 {
 
 	int dis_xi = (int)(dst_point.v[0] - start_pont.v[0]);
@@ -118,7 +118,7 @@ void draw_line_legacy(vec4_t start_pont, vec4_t dst_point,float start_point_alph
 }
 
 
-void draw_polygon(vec4_t p1, vec4_t p2, vec4_t p3 , float p1_alpha , float p2_alpha , float p3_alpha)
+void draw_polygon(fvec4_t p1, fvec4_t p2, fvec4_t p3 , float p1_alpha , float p2_alpha , float p3_alpha)
 {
 	//edge line
 	
@@ -145,20 +145,20 @@ void draw_polygon(vec4_t p1, vec4_t p2, vec4_t p3 , float p1_alpha , float p2_al
 	int width_i =(int) width_f;
 	int height_i = (int)height_f;
 
-	vec2_t line_p1p2_2f = { p2.x - p1.x , p2.y - p1.y }; // a , 1 , c  , 0 = ax -y +c 꼴의 선형방정식 a 기울기 c 
-	vec2_t line_p2p3_2f = { p3.x - p2.x , p3.y - p2.y};
-	vec2_t line_p3p1_2f = { p1.x - p3.x , p1.y - p3.y};
+	fvec2_t line_p1p2_2f = { p2.x - p1.x , p2.y - p1.y }; // a , 1 , c  , 0 = ax -y +c 꼴의 선형방정식 a 기울기 c 
+	fvec2_t line_p2p3_2f = { p3.x - p2.x , p3.y - p2.y};
+	fvec2_t line_p3p1_2f = { p1.x - p3.x , p1.y - p3.y};
 	
-	vec2_t cur_point_2f;
+	fvec2_t cur_point_2f;
 	for (int cur_y = (int)min_y ; cur_y < (int)max_y; ++cur_y)
 	{
 		for (int cur_x = (int)min_x; cur_x < (int)max_x; ++cur_x)
 		{
-			cur_point_2f = (vec2_t){ (float)cur_x , (float)cur_y};
+			cur_point_2f = (fvec2_t){ (float)cur_x , (float)cur_y};
 
-			vec2_t p1_cur_point_2f = { cur_point_2f.x - p1.x, cur_point_2f.y - p1.y};
-			vec2_t p2_cur_point_2f = { cur_point_2f.x - p2.x, cur_point_2f.y - p2.y };
-			vec2_t p3_cur_point_2f = { cur_point_2f.x - p3.x, cur_point_2f.y - p3.y };
+			fvec2_t p1_cur_point_2f = { cur_point_2f.x - p1.x, cur_point_2f.y - p1.y};
+			fvec2_t p2_cur_point_2f = { cur_point_2f.x - p2.x, cur_point_2f.y - p2.y };
+			fvec2_t p3_cur_point_2f = { cur_point_2f.x - p3.x, cur_point_2f.y - p3.y };
 
 			float edge1 = (line_p1p2_2f.x * p1_cur_point_2f.y) - (line_p1p2_2f.y * p1_cur_point_2f.x);
 			float edge2 = (line_p2p3_2f.x * p2_cur_point_2f.y) - (line_p2p3_2f.y * p2_cur_point_2f.x);
@@ -204,19 +204,19 @@ void draw_vertex_array(int mode, int first, int count)
 		{
 
 
-			vec4_t p1 = vertexArrayPoint[idx];
+			fvec4_t p1 = vertexArrayPoint[idx];
 
 
-			p1 = (vec4_t){ p1.x , p1.y  , p1.z  , 1.F};
+			p1 = (fvec4_t){ p1.x , p1.y  , p1.z  , 1.F};
 			p1 = mul_v4m4(&p1, &g_model_scale);
 			p1 = mul_v4m4(&p1, &g_model_rotate);
 			p1 = mul_v4m4(&p1, &g_model_translate);
 			
 
 
-			vec4_t p2 = vertexArrayPoint[(idx + 1) % count];
+			fvec4_t p2 = vertexArrayPoint[(idx + 1) % count];
 
-			p2 = (vec4_t){ p2.x  , p2.y  , p2.z  , 1.F };
+			p2 = (fvec4_t){ p2.x  , p2.y  , p2.z  , 1.F };
 			p2 = mul_v4m4(&p2, &g_model_scale);
 			p2 = mul_v4m4(&p2, &g_model_rotate);
 			p2 = mul_v4m4(&p2, &g_model_translate);
@@ -235,27 +235,27 @@ void draw_vertex_array(int mode, int first, int count)
 		{
 
 
-			vec4_t p1 = vertexArrayPoint[idx];
+			fvec4_t p1 = vertexArrayPoint[idx];
 			float p1_alpha = p1.w;
-			p1 = (vec4_t){ p1.x , p1.y  , p1.z  , 1.F };
+			p1 = (fvec4_t){ p1.x , p1.y  , p1.z  , 1.F };
 			p1 = mul_v4m4(&p1, &g_model_scale);
 			p1 = mul_v4m4(&p1, &g_model_rotate);
 			p1 = mul_v4m4(&p1, &g_model_translate);
 			p1 = mul_v4m4(&p1, &g_view);
 
 			p1 = mul_v4m4(&p1, &g_projection);
-			vec4_t p2 = vertexArrayPoint[(idx + 1) % count];
+			fvec4_t p2 = vertexArrayPoint[(idx + 1) % count];
 			float p2_alpha = p2.w;
-			p2 = (vec4_t){ p2.x  , p2.y  , p2.z  , 1.F };
+			p2 = (fvec4_t){ p2.x  , p2.y  , p2.z  , 1.F };
 			p2 = mul_v4m4(&p2, &g_model_scale);
 			p2 = mul_v4m4(&p2, &g_model_rotate);
 			p2 = mul_v4m4(&p2, &g_model_translate);
 			p2 = mul_v4m4(&p2, &g_view);
 
 			p2 = mul_v4m4(&p2, &g_projection);
-			vec4_t p3 = vertexArrayPoint[(idx + 2) % count];
+			fvec4_t p3 = vertexArrayPoint[(idx + 2) % count];
 			float p3_alpha = p3.w;
-			p3 = (vec4_t){ p3.x  , p3.y  , p3.z  , 1.F };
+			p3 = (fvec4_t){ p3.x  , p3.y  , p3.z  , 1.F };
 			p3 = mul_v4m4(&p3, &g_model_scale);
 			p3 = mul_v4m4(&p3, &g_model_rotate);
 			p3 = mul_v4m4(&p3, &g_model_translate);
@@ -263,9 +263,9 @@ void draw_vertex_array(int mode, int first, int count)
 
 			p3 = mul_v4m4(&p3, &g_projection);
 
-			p1 = (vec4_t){ p1.x / p1.w , p1.y / p1.w  , p1.z  , 1.F };
-			p2 = (vec4_t){ p2.x / p2.w  , p2.y / p2.w  , p2.z  , 1.F };
-			p3 = (vec4_t){ p3.x / p3.w , p3.y / p3.w , p3.z  , 1.F };
+			p1 = (fvec4_t){ p1.x / p1.w , p1.y / p1.w  , p1.z  , 1.F };
+			p2 = (fvec4_t){ p2.x / p2.w  , p2.y / p2.w  , p2.z  , 1.F };
+			p3 = (fvec4_t){ p3.x / p3.w , p3.y / p3.w , p3.z  , 1.F };
 			//projection을 통해 z축을 xy축에 반영 필요
 			ivec2_t p1_v2i = {(int)p1.x , (int)p1.y};
 			ivec2_t p2_v2i = { (int)p2.x , (int)p2.y };
@@ -283,25 +283,25 @@ void draw_vertex_array(int mode, int first, int count)
 		{
 
 
-			vec4_t p1 = vertexArrayPoint[idx];
+			fvec4_t p1 = vertexArrayPoint[idx];
 			float p1_alpha = p1.w;
-			p1 = (vec4_t){ p1.x , p1.y  , p1.z  , 1.F };
+			p1 = (fvec4_t){ p1.x , p1.y  , p1.z  , 1.F };
 			p1 = mul_v4m4(&p1, &g_model_scale);
 			p1 = mul_v4m4(&p1, &g_model_rotate);
 			p1 = mul_v4m4(&p1, &g_model_translate);
 			p1 = mul_v4m4(&p1, &g_view);
 			p1 = mul_v4m4(&p1, &g_projection);
-			vec4_t p2 = vertexArrayPoint[(idx + 1) % count];
+			fvec4_t p2 = vertexArrayPoint[(idx + 1) % count];
 			float p2_alpha = p2.w;
-			p2 = (vec4_t){ p2.x  , p2.y  , p2.z  , 1.F };
+			p2 = (fvec4_t){ p2.x  , p2.y  , p2.z  , 1.F };
 			p2 = mul_v4m4(&p2, &g_model_scale);
 			p2 = mul_v4m4(&p2, &g_model_rotate);
 			p2 = mul_v4m4(&p2, &g_model_translate);
 			p2 = mul_v4m4(&p2, &g_view);
 			p2 = mul_v4m4(&p2, &g_projection);
-			vec4_t p3 = vertexArrayPoint[(idx + 2) % count];
+			fvec4_t p3 = vertexArrayPoint[(idx + 2) % count];
 			float p3_alpha = p3.w;
-			p3 = (vec4_t){ p3.x  , p3.y  , p3.z  , 1.F };
+			p3 = (fvec4_t){ p3.x  , p3.y  , p3.z  , 1.F };
 			p3 = mul_v4m4(&p3, &g_model_scale);
 			p3 = mul_v4m4(&p3, &g_model_rotate);
 			p3 = mul_v4m4(&p3, &g_model_translate);

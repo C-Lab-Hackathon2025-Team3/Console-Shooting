@@ -3,9 +3,9 @@
 #include "affine_math.h"
 
 
-vec4_t add_v4v4(const vec4_t* v1,const vec4_t* v2)
+fvec4_t add_v4v4(const fvec4_t* v1,const fvec4_t* v2)
 {
-	return (vec4_t) { v1->x + v2->x , v1->y + v2->y , v1->z + v2->z , v1->w + v2->w };
+	return (fvec4_t) { v1->x + v2->x , v1->y + v2->y , v1->z + v2->z , v1->w + v2->w };
 }
 
 vec3_t add_v3v3(const vec3_t* v1, const vec3_t* v2)
@@ -13,9 +13,9 @@ vec3_t add_v3v3(const vec3_t* v1, const vec3_t* v2)
 	return (vec3_t) { v1->x + v2->x, v1->y + v2->y, v1->z + v2->z};
 }
 
-vec4_t sub_v4v4(const vec4_t* v1, const vec4_t* v2)
+fvec4_t sub_v4v4(const fvec4_t* v1, const fvec4_t* v2)
 {
-	return (vec4_t) { v1->x - v2->x, v1->y - v2->y, v1->z - v2->z, v1->w - v2->w };
+	return (fvec4_t) { v1->x - v2->x, v1->y - v2->y, v1->z - v2->z, v1->w - v2->w };
 }
 
 vec3_t sub_v3v3(const vec3_t* v1, const vec3_t* v2)
@@ -26,9 +26,9 @@ vec3_t sub_v3v3(const vec3_t* v1, const vec3_t* v2)
 
 
 
-vec4_t mul_m4v4(const mat4_t* m,const vec4_t* v)
+fvec4_t mul_m4v4(const mat4_t* m,const fvec4_t* v)
 {
-	vec4_t re = {
+	fvec4_t re = {
 		m->m[0][0] * v->x + m->m[0][1] * v->y + m->m[0][2] * v->z + m->m[0][3] * v->w,
 
 		m->m[1][0] * v->x + m->m[1][1] * v->y + m->m[1][2] * v->z + m->m[1][3] * v->w,
@@ -42,9 +42,9 @@ vec4_t mul_m4v4(const mat4_t* m,const vec4_t* v)
 }
 
 
-vec4_t mul_v4m4(const vec4_t* v,const mat4_t* m)
+fvec4_t mul_v4m4(const fvec4_t* v,const mat4_t* m)
 {
-	vec4_t re = {
+	fvec4_t re = {
 		m->m[0][0] * v->x + m->m[1][0] * v->y + m->m[2][0] * v->z + m->m[3][0] * v->w,
 
 		m->m[0][1] * v->x + m->m[1][1] * v->y + m->m[2][1] * v->z + m->m[3][1] * v->w,
@@ -75,8 +75,8 @@ mat4_t mul_m4m4(const mat4_t* m1,const mat4_t* m2)
 
 }
 
-vec4_t mul_s1v4(float s,const vec4_t* v);
-vec4_t mul_s1m4(float s,const mat4_t* m);
+fvec4_t mul_s1v4(float s,const fvec4_t* v);
+fvec4_t mul_s1m4(float s,const mat4_t* m);
 
 vec3_t mul_m3v3(const mat3_t* m,const vec3_t* v);
 mat3_t mul_m3m3(const mat3_t* m1,const mat3_t* m2);
@@ -84,11 +84,11 @@ vec3_t mul_s1v3(float s,const vec3_t* v)
 {
 	return (vec3_t) {v->x*s , v->y*s , v->z*s };
 }
-vec4_t mul_s1m3(float s,const mat3_t* m);
+fvec4_t mul_s1m3(float s,const mat3_t* m);
 
 
-vec4_t cross_v4(const vec4_t* v1,const vec4_t* v2);
-float dot_v4(const vec4_t* v1,const vec4_t* v2);
+fvec4_t cross_v4(const fvec4_t* v1,const fvec4_t* v2);
+float dot_v4(const fvec4_t* v1,const fvec4_t* v2);
 
 vec3_t cross_v3(const vec3_t* v1, const vec3_t* v2)
 {
@@ -98,7 +98,7 @@ vec3_t cross_v3(const vec3_t* v1, const vec3_t* v2)
 	};
 }
 
-float cross_v2(const vec2_t* v1,const vec2_t* v2)
+float cross_v2(const fvec2_t* v1,const fvec2_t* v2)
 {
 	return (float)((v1->x * v2->y) - (v1->y * v2->x));
 }
@@ -110,7 +110,7 @@ float dot_v3(const vec3_t* v1, const vec3_t* v2)
 	return (float) {v1->x* v2->x + v1->y * v2->y + v1->z * v2->z };
 }
 
-float length_v4(const vec4_t* v)
+float length_v4(const fvec4_t* v)
 {
 	return sqrtf(v->x * v->x + v->y * v->y + v->z * v->z + v->w * v->w);
 }
@@ -119,15 +119,15 @@ float length_v3(const vec3_t* v)
 	return sqrtf(v->x*v->x + v->y * v->y + v->z * v->z);
 }
 
-float length_v2(const vec2_t* v)
+float length_v2(const fvec2_t* v)
 {
 	return sqrtf(v->x * v->x + v->y * v->y);
 }
 
-vec4_t normalize_v4(const vec4_t* v)
+fvec4_t normalize_v4(const fvec4_t* v)
 {
 	float len = length_v4(v);
-	return (vec4_t) { v->x / len, v->y / len, v->z / len , v->w/len };
+	return (fvec4_t) { v->x / len, v->y / len, v->z / len , v->w/len };
 }
 vec3_t normalize_v3(const vec3_t* v)
 {

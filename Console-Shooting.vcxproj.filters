@@ -33,6 +33,18 @@
     <ClCompile Include="draw_circle.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="affine_math.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="consolGL.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="draw_sphere.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="z_buffer_screen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console_screen.h">
@@ -51,6 +63,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="draw_sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="z_buffer_screen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="affine_math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="consolGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

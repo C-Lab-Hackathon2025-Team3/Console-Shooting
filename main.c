@@ -23,7 +23,7 @@ vec3_t center = { 0.F , 0.F  , 0.F };
 vec3_t up = { 0.F , 1.F , 0.F };
 
 //�ﰢ�� ���� �׽�Ʈ�� ���� ũ�Ⱑ �󸶳� ������ ���� �ϴ� 999999 �� ��
-vec4_t g_temp_sphere_buffer[999999];
+fvec4_t g_temp_sphere_buffer[999999];
 int g_temp_sphere_size =  0;
 
 void eventCall()
@@ -64,13 +64,13 @@ void eventCall()
 int main(void)
 {
 
-	vec4_t tri[3] = {
+	fvec4_t tri[3] = {
 			{ -1.F  , 0.F ,0.F ,1.F},
 			{ 0.F ,  1.F ,0.F ,1.F},
 			{ 1.F , 0.F,0.F ,1.F},
 	};
 
-	vec4_t cube[8] = {
+	fvec4_t cube[8] = {
 
 		{ -1.F  , -1.F ,-1.F ,0.1},
 		{ -1.F  , -1.F ,1.F ,0.1F},
@@ -111,7 +111,7 @@ int main(void)
 		6,5,7	//33 34 35
 	};
 
-	vec4_t cube_vertex_buf[36];
+	fvec4_t cube_vertex_buf[36];
 
 	for (int idx = 0; idx < 36; idx++)
 	{

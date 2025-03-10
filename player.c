@@ -18,7 +18,7 @@ void draw_player(int centerX, int centerY, int radius)
                 float normY = (float)(y) / get_screen_height() * 2 - 1;
 
                 // 원의 겉선을 그리기
-                draw_point(normX, normY, '*');
+              //  draw_point(normX, normY, '*');
             }
         }
     }

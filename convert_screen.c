@@ -2,13 +2,13 @@
 #include "convert_screen.h"
 #include "console_screen.h"
 
-void convert_screen_coordinate(const float x, const float y, int* const out_screenX, int* const out_screenY)
+void convert_screen_coordinate(const float x, const float y, float* const out_screenX, float* const out_screenY)
 {
 	size_t width = get_screen_width();
 	size_t height = get_screen_height();
 
-	*out_screenX = (int)((x + 1) / 2 * (width - 1));
-	*out_screenY = (int)((1 - y) / 2 * (height - 1));
+	*out_screenX = (float)((x + 1) / 2 * (width - 1));
+	*out_screenY = (float)((1 - y) / 2 * (height - 1));
 }
 
 void convert_point_array(const fvec4_t* pos, size_t length, ivec2_t* out_points)
@@ -23,9 +23,11 @@ void convert_point_array(const fvec4_t* pos, size_t length, ivec2_t* out_points)
 	}
 }
 
+/*
 void draw_point(float x, float y, char pixel)
 {
 	int screenX = 0, screenY = 0;
 	convert_screen(x, y, &screenX, &screenY);
 	push_pixel(pixel, screenX, screenY);
 }
+*/
