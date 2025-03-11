@@ -45,6 +45,9 @@
     <ClCompile Include="z_buffer_screen.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="model_object.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console_screen.h">
@@ -77,5 +80,21 @@
     <ClInclude Include="consolGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="model_object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sphere_model.object">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="spike_sphere_model.object">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="cube_src.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

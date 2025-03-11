@@ -134,6 +134,7 @@
     <ClCompile Include="draw_circle.c" />
     <ClCompile Include="draw_sphere.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="model_object.c" />
     <ClCompile Include="player.c" />
     <ClCompile Include="polygon.c" />
     <ClCompile Include="z_buffer_screen.c" />
@@ -146,9 +147,17 @@
     <ClInclude Include="def.h" />
     <ClInclude Include="draw_circle.h" />
     <ClInclude Include="draw_sphere.h" />
+    <ClInclude Include="model_object.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="z_buffer_screen.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sphere_model.object" />
+    <None Include="spike_sphere_model.object" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="cube_src.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
