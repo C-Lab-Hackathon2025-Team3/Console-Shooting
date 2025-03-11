@@ -34,8 +34,7 @@ void eventCall()
 		g_sphere.pos.x -= 1.F;
 	else if (key == 'd')
 		g_sphere.pos.x += 1.F;
-
-	if (key == 'i')
+	else if (key == 'i')
 		g_spike_sphere.pos.y += 1.F;
 	else if (key == 'k')
 		g_spike_sphere.pos.y -= 1.F;
