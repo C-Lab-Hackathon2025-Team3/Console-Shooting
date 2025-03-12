@@ -52,7 +52,7 @@ object_t g_spike_sphere;
 
 object_t g_player;
 object_t g_enemy[9];
-float g_accelate[9] = {0.F, };
+float g_accelate[9] = { 0.F, };
 
 clock_t g_start_time;
 clock_t g_current_time;
@@ -90,6 +90,7 @@ void init_program(void);
 int main(void)
 {
 	init_program();
+	g_accelate[rand() % 9] = 0.5F;
 
 	while (1)
 	{
@@ -98,16 +99,18 @@ int main(void)
 		g_elapsed_time = (float)(g_current_time - g_start_time) / CLOCKS_PER_SEC * 1000;
 		g_player.angle = g_elapsed_time/1000.F;
 		draw_object(&g_player);
-
+		
+		srand(time(NULL));
 
 		for (size_t i = 0; i < 9; i++)
 		{
 			g_enemy[i].angle = g_elapsed_time / 1000.F * g_sign[i % 2];
-			g_enemy[i].pos.y -=(g_elapsed_time / 50000.F) * g_accelate[i];
+			g_enemy[i].pos.y -=(g_elapsed_time / 10000.F) * g_accelate[i];
 			if (g_enemy[i].pos.y < Y_MIN) 
 			{
 				g_enemy[i].pos.y = Y_MAX + 20;
-				g_accelate[i] += 1.F;
+				g_accelate[i] = 0;
+				g_accelate[rand() % 9] = 0.5F;
 			}
 			draw_object(g_enemy + i);
 		}
@@ -153,7 +156,7 @@ void init_program(void)
 	{
 		load_file_object(&g_enemy[i], "spike_sphere_model.object");
 		g_enemy[i].scale = (vec3_t){ 5.F , 5.F ,5.F };
-		g_enemy[i].pos = (vec3_t){ -40.F + (float)i * 10.F , Y_MAX , 0.F };
+		g_enemy[i].pos = (vec3_t){ -40.F + (float)i * 10.F , Y_MAX + 20 , 0.F };
 	}
 
 	g_start_time = clock();
