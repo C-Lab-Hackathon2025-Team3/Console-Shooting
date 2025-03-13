@@ -77,9 +77,9 @@ void eventCall()
 		int key = getch();
 
 		if ((key == 'a' || key == 'A') && (g_player.pos.x > -40.F))
-			g_player.pos.x -= 1.F;
+			g_player.pos.x -= 2.F;
 		else if ((key == 'd' || key == 'D') && (g_player.pos.x < 40.F))
-			g_player.pos.x += 1.F;
+			g_player.pos.x += 2.F;
 	}
 #endif
 
@@ -112,6 +112,7 @@ int main(void)
 				g_accelate[i] = 0;
 				g_accelate[rand() % 9] = 0.5F;
 			}
+
 			draw_object(g_enemy + i);
 		}
 
