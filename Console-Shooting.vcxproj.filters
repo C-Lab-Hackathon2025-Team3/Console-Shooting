@@ -48,6 +48,9 @@
     <ClCompile Include="model_object.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="accident.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console_screen.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="model_object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="accident.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="accident.c" />
     <ClCompile Include="affine_math.c" />
     <ClCompile Include="console_screen.c" />
     <ClCompile Include="consolGL.c" />
@@ -140,6 +141,7 @@
     <ClCompile Include="z_buffer_screen.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="accident.h" />
     <ClInclude Include="affine_math.h" />
     <ClInclude Include="console_screen.h" />
     <ClInclude Include="consolGL.h" />
