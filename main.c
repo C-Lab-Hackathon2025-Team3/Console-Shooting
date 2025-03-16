@@ -14,8 +14,8 @@
 #include <windows.h>
 #endif
 
-#define SCREEN_WIDTH 200
-#define SCREEN_HEGITH 200
+#define SCREEN_WIDTH (200)
+#define SCREEN_HEGITH (200)
 #define Y_MAX (100)
 #define Y_MIN (-30.F)
 #define MAX_SPEED (1.F)
@@ -83,9 +83,9 @@ void eventCall()
 		int key = getch();
 
 		if ((key == 'a' || key == 'A') && (g_player.pos.x > -40.F))
-			g_player.pos.x -= 2.F;
+			g_player.pos.x -= 2.5F;
 		else if ((key == 'd' || key == 'D') && (g_player.pos.x < 40.F))
-			g_player.pos.x += 2.F;
+			g_player.pos.x += 2.5F;
 	}
 #endif
 
@@ -96,12 +96,18 @@ void init_program(void);
 int main(void)
 {
 	init_program();
-	g_accelate[rand() % 9] = 0.5F;
+	g_accelate[rand() % 9] = 0.2F;
+
+	push_pixel('@', get_screen_width()-1, get_screen_height()-1);
+	draw_screen();
+	int input_start;
+	scanf_s("%d",&input_start);
+	clock_t start_time = clock();
+
 
 	while (1)
-	{
-		g_current_time = clock();
-
+	{	
+		g_current_time = clock() - start_time;
 		g_elapsed_time = (float)(g_current_time - g_start_time) / CLOCKS_PER_SEC * 1000;
 		g_player.angle = g_elapsed_time/1000.F;
 		draw_object(&g_player);
@@ -112,7 +118,7 @@ int main(void)
 		{
 			g_enemy[i].angle = g_elapsed_time / 1000.F * g_sign[i % 2];
 
-			float accelate = ((g_elapsed_time / 1000.F) * g_accelate[i] > 0.5F) ? MAX_SPEED : (g_elapsed_time / 1000.F) * g_accelate[i];
+			float accelate = ((g_elapsed_time / 1000.F) * g_accelate[i] > 0.5F) ? MAX_SPEED : (g_elapsed_time / 10000.F) * g_accelate[i];
 			g_enemy[i].pos.y -= accelate;
 
 			if (check_collision(g_enemy[i].pos.x, g_enemy[i].pos.y,g_enemy_scale, g_player.pos.x, g_player.pos.y, g_player_scale))
