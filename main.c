@@ -18,7 +18,7 @@
 #define SCREEN_HEGITH 200
 #define Y_MAX (100)
 #define Y_MIN (-30.F)
-#define MAX_SPEED (0.5F)
+#define MAX_SPEED (1.F)
 #define PI (3.1415926535F)
 
 #if defined(__APPLE__)
@@ -51,6 +51,9 @@ vec3_t g_cam_up = { 0.F , 1.F , 0.F };
 
 object_t g_sphere;
 object_t g_spike_sphere;
+
+float g_player_scale = 8.F;
+float g_enemy_scale = 5.F;
 
 object_t g_player;
 object_t g_enemy[9];
@@ -112,7 +115,7 @@ int main(void)
 			float accelate = ((g_elapsed_time / 1000.F) * g_accelate[i] > 0.5F) ? MAX_SPEED : (g_elapsed_time / 1000.F) * g_accelate[i];
 			g_enemy[i].pos.y -= accelate;
 
-			if (check_collision(g_enemy[i].pos.x, g_enemy[i].pos.y, 5.F, g_player.pos.x, g_player.pos.y, 10.F))
+			if (check_collision(g_enemy[i].pos.x, g_enemy[i].pos.y,g_enemy_scale, g_player.pos.x, g_player.pos.y, g_player_scale))
 			{
 				goto game_over;
 				
@@ -171,12 +174,12 @@ void init_program(void)
 	projection_screen(-(float)SCREEN_WIDTH / 4.F, (float)SCREEN_WIDTH / 4.F, -(float)SCREEN_HEGITH / 4.F, (float)SCREEN_HEGITH / 4.F, -80.F, 80.F);
 
 	load_file_object(&g_player, "sphere_model.object");
-	g_player.scale = (vec3_t){ 10.F , 10.F ,10.F };
+	g_player.scale = (vec3_t){ g_player_scale , g_player_scale , g_player_scale };
 	g_player.pos = (vec3_t){ 0.F , Y_MIN , 0.F };
 	for (size_t i = 0; i < 9; i++)
 	{
 		load_file_object(&g_enemy[i], "spike_sphere_model.object");
-		g_enemy[i].scale = (vec3_t){ 5.F , 5.F ,5.F };
+		g_enemy[i].scale = (vec3_t){ g_enemy_scale , g_enemy_scale ,g_enemy_scale };
 		g_enemy[i].pos = (vec3_t){ -40.F + (float)i * 10.F , Y_MAX + 20 , 0.F };
 	}
 
