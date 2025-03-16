@@ -45,7 +45,7 @@ float g_cam_angle_y = 0.785398F;
 float g_cam_angle_z = 0.785398F;
 float cam_r = 5.F;
 
-vec3_t g_cam_eye = { 0.F , 5.F , -10.F };
+vec3_t g_cam_eye = { 0.F , 4.F , -10.F };
 vec3_t g_cam_center = { 0.F , 0.F  , 0.F };
 vec3_t g_cam_up = { 0.F , 1.F , 0.F };
 
@@ -194,3 +194,5 @@ void init_program(void)
 		init_keyboard();
 	#endif
 }
+
+//minjae is free 2025-03-16 14:56
