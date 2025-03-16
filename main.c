@@ -3,6 +3,7 @@
 #include "z_buffer_screen.h"
 #include "draw_sphere.h"
 #include "model_object.h"
+#include "accident.h"
 #include <math.h>
 #include <conio.h>
 #include <time.h>
@@ -17,6 +18,7 @@
 #define SCREEN_HEGITH 200
 #define Y_MAX (100)
 #define Y_MIN (-30.F)
+#define MAX_SPEED (0.5F)
 #define PI (3.1415926535F)
 
 #if defined(__APPLE__)
@@ -58,6 +60,7 @@ clock_t g_start_time;
 clock_t g_current_time;
 float g_elapsed_time = 0;
 
+int g_cnt_score = 0;
 
 void eventCall()
 {
@@ -105,9 +108,19 @@ int main(void)
 		for (size_t i = 0; i < 9; i++)
 		{
 			g_enemy[i].angle = g_elapsed_time / 1000.F * g_sign[i % 2];
-			g_enemy[i].pos.y -=(g_elapsed_time / 10000.F) * g_accelate[i];
+
+			float accelate = ((g_elapsed_time / 1000.F) * g_accelate[i] > 0.5F) ? MAX_SPEED : (g_elapsed_time / 1000.F) * g_accelate[i];
+			g_enemy[i].pos.y -= accelate;
+
+			if (check_collision(g_enemy[i].pos.x, g_enemy[i].pos.y, 5.F, g_player.pos.x, g_player.pos.y, 10.F))
+			{
+				goto game_over;
+				
+			}
+
 			if (g_enemy[i].pos.y < Y_MIN) 
 			{
+				g_cnt_score++;
 				g_enemy[i].pos.y = Y_MAX + 20;
 				g_accelate[i] = 0;
 				g_accelate[rand() % 9] = 0.5F;
@@ -118,9 +131,9 @@ int main(void)
 
 
 
-
+	
 		draw_screen();
-
+	
 		
 
 		clear_depth_buffer();
@@ -129,10 +142,17 @@ int main(void)
 
 	
 	}
+	char message[25] = { 0.F ,};
+
+game_over:
 
 #if defined(__APPLE__)
 	reset_keyboard(); 
+#else
+	sprintf_s(message, 25, "game_over , score: %d", g_cnt_score);
+	MessageBoxA(NULL, message, TEXT("game_over"), MB_OK);
 #endif
+	
 
 	release_object(&g_sphere);
 	release_object(&g_spike_sphere);
