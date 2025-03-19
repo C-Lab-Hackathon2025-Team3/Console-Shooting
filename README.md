@@ -1,11 +1,13 @@
 affine_math.h
 affine_math.c
+
 affine 변환에 사용될 수학함수 구현
 벡터 내외적 계산, 벡터 행렬, 행렬 행렬 곱 등의 기하 관련 계산 구현
 이동, 크기, 회전 변환, 시점, 투영 변환 행렬 계산 함수 구현
 
 consolGL.h
 consolGL.c
+
 사용자가 올린 정점 버퍼를 그래픽스 파이프라인을 거쳐
 프레임 버퍼에 올려주는 프로그램
 그래픽스 파이프라인 구현에 필요한
@@ -15,6 +17,7 @@ consolGL.c
 
 model_object.h
 model_object.c
+
 consolGL을 사용하는 유저가 오브젝트를 손쉽게 불러오고 수정할 수 있도록 구현된 프로그램
 3차원 기하학적 물체를 xyz 모두 1.0 ~ -1.0 사이에 위치시킨 정점 배열과
 정점 배열의 크기와 좌표 회전각을 포함한 오브젝트를 파일로 저장하고 불러올 수 있도록 구현
@@ -23,6 +26,7 @@ draw_object 구현
 
 z_buffer_screen.h
 z_buffer_screen.c
+
 3차원 공간에서 물체가 뒤에 있지만 나중에 그려져 앞의 물체를 프레임버퍼에 
 덮어쓰는 문제를 해결하기 위해 제작
 프레임버퍼와 동일한 크기의 -1.0 ~ 1.0 사이의 값을 저장한뒤
@@ -32,6 +36,7 @@ z_buffer_screen.c
 
 draw_sphere.h
 draw_sphere.c
+
 테셀레이션(삼각형 구조의 3개의 정점을 쪼개어 여러개의 삼각형으로 만듦)을 통하여
 큐브형태의 오브젝트를 구의 형태로 변환시켜주는 프로그램
 게임 내에서 사용되는 sphere_model.object 화 spike_sphere_model.object를 구현할 때 사용됨
