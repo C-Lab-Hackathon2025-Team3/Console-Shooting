@@ -8,7 +8,6 @@
 char* get_screen_buffer(void);
 #endif
 
-
 extern const char ASCII_BRIGHTNESS[];
 extern const char BIRGHTNESS_RANGE;
 
